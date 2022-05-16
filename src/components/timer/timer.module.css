@@ -1,0 +1,29 @@
+.flagBtn {
+  border: 0;
+  border-radius: 5px;
+  margin: 0;
+  padding: 0;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.flagBtn:hover {
+  opacity: 0.6;
+  box-shadow: 20px;
+}
+
+.flagBtnSelected {
+  opacity: 0.4;
+}
+
+.flagIcoBtn {
+  width: 50px;
+  height: 25px;
+}
+
+.counter {
+  margin-left: 20px;
+  margin-top: 5px;
+  letter-spacing: 5px;
+  font-family: 'Grape Nuts', cursive;
+}

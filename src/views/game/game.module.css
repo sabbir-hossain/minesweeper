@@ -1,0 +1,10 @@
+.mainContents {
+  margin: 0 auto;
+  width: 90%;
+  margin-top: 50px;
+}
+
+.gameDisplay {
+  height: 450px;
+  padding-top: 1px;
+}

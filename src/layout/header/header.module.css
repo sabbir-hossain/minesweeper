@@ -1,0 +1,62 @@
+.headerContents {
+  display: block;
+  background-color: #077878;
+  color: #f9f9f9;
+  margin: 0;
+  padding: 0;
+}
+
+.contextHeader{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin: 0 auto;
+  width: 90%;
+}
+
+.headerMain {
+  margin-top: 7px;
+}
+
+.headerTitle {
+
+  font-size: 1.4em;
+  cursor: pointer;
+}
+
+.headerTitle:hover {
+  opacity: 0.6;
+}
+
+ul.headerMenu {
+  margin-top: 7px;
+}
+
+ul.headerMenu > li {
+  /* display: inline; */
+  list-style-type: none;
+  float: right;
+}
+
+.routeName {
+  padding: 5px 15px;
+  padding-right: 0;
+}
+
+ul.headerMenu > li  a {
+  color: #f9f9f9;
+  text-decoration: none;
+  font-size: 1em;
+}
+
+ul.headerMenu > li  a:hover {
+  opacity: 0.7;
+}
+
+.activeRoute {
+  color: #bfbfbf !important;
+}
+
+.options {
+  display: flex;
+  margin-top: 13px;
+}
