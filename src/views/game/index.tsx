@@ -33,25 +33,25 @@ function Game() {
     !isLoaded && fetchGame();
   }, [dispatch, isLoaded]);
 
-  useEffect(() => {
-    const counterInterval = setInterval(() => {
-      const remainingTime = getRemainingTime(startTime, currentTime, totalTime);
-      if (remainingTime <= 0) {
-        Notification.error('timeout');
-        gameTimeout(dispatch);
-      } else {
-        countdown(dispatch);
-      }
+  // useEffect(() => {
+  //   const counterInterval = setInterval(() => {
+  //     const remainingTime = getRemainingTime(startTime, currentTime, totalTime);
+  //     if (remainingTime <= 0) {
+  //       Notification.error('timeout');
+  //       gameTimeout(dispatch);
+  //     } else {
+  //       countdown(dispatch);
+  //     }
 
-      if ((!play && failed) || success) {
-        clearInterval(counterInterval);
-      }
-    }, 1000)
+  //     if ((!play && failed) || success) {
+  //       clearInterval(counterInterval);
+  //     }
+  //   }, 1000)
 
-    return () => {
-      clearInterval(counterInterval)
-    }
-  }, [dispatch, failed, play, success, startTime, currentTime, totalTime])
+  //   return () => {
+  //     clearInterval(counterInterval)
+  //   }
+  // }, [dispatch, failed, play, success, startTime, currentTime, totalTime])
 
   return (
     <Layout>

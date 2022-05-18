@@ -1,11 +1,10 @@
 .box {
   width: 25px;
   height: 25px;
-  padding: 3px;
+  /* padding: 3px; */
   margin: 0;
   text-align: center;
   color: #f0f0f0;
-  border: 1px solid rgb(224, 221, 221);
   cursor: pointer;
 }
 
@@ -46,7 +45,8 @@
   margin: 0;
 } */
 
-.range-0 { background-color:#7e8485; }
+.range-0 { background-color:#66a347; }
+.range-0-even { background-color:#729362; }
 .range-1 { background-color:#641E16; }
 .range-2 { background-color:#2b003c; }
 .range-3 { background-color:#154360; }

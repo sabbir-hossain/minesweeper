@@ -3,7 +3,8 @@ export function findAdjacent(_data: any[], a: number, b: number) {
     _data[a][b] = {
       value: -1,
       cls: 'range-0',
-      display: '.'
+      // display: '.'
+      display: ''
     };
     return _data;
   }
@@ -53,7 +54,8 @@ export function findAdjacent(_data: any[], a: number, b: number) {
   _data[a][b] = {
     value: count,
     cls: 'range-0',
-    display: '.'
+    display: ''
+    // display: '.'
   };
 
   return _data;

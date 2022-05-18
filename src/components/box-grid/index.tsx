@@ -50,7 +50,11 @@ const BoxGrid = ({ data = [] }) => {
                   key={`${idx}-${idx2}`}
                   id={`${idx}-${idx2}`}
                   value={dt.value}
-                  cls={dt.cls}
+                  cls={
+                    (dt.display === '' || dt.display === '0')
+                      ? (idx + idx2) % 2 === 0 ? `${dt.cls}-even`: dt.cls
+                      : dt.cls
+                  }
                   display={dt.display}
                   handleBox={handleBox}
                 />
