@@ -1,7 +1,6 @@
 .box {
   width: 25px;
   height: 25px;
-  /* padding: 3px; */
   margin: 0;
   text-align: center;
   color: #f0f0f0;
@@ -20,13 +19,15 @@
 .boxDisable {
   width: 25px;
   height: 25px;
-  padding: 3px;
   margin: 0;
   text-align: center;
   color: #f0f0f0;
-  border: 1px solid rgb(224, 221, 221);
-  opacity: 0.4;
+  background-color: #66a347;
   cursor: default;
+}
+
+.boxDisableEven {
+  background-color: #729362;
 }
 
 .mine {
@@ -52,6 +53,6 @@
 .range-3 { background-color:#154360; }
 .range-4 { background-color:#0E6251; }
 .range-5 { background-color:#7D6608; }
-.range-6 { background-color:#626567; }
-.range-7 { background-color:#17202A; }
-.range-8 { background-color:#6E2C00; }
+.range-6 { background-color:#17202A; }
+.range-7 { background-color:#6E2C00; }
+.range-8 { background-color:#626567; }

@@ -13,10 +13,10 @@ export interface Props extends React.ComponentPropsWithoutRef<any> {
   handleBox: any
 }
 
-// const showBox = {
-//   show_mine: () => <img alt='mine' src={'./mine.jpg'} className={styles.boxImg} />,
-//   show_flag: () => <img alt='flag' src={'./flag-icon2.png'} className={styles.boxImg} />
-// }
+const showDisable = (id: string) => {
+  const [a, b] = id.split('-');
+  return `${styles.boxDisable} ${ (+a + +b) % 2 === 0 && styles.boxDisableEven}`
+}
 
 const showMine = (play: boolean) => (
   <div className={`${play ? styles.box : styles.boxDisable}`}>
@@ -32,7 +32,7 @@ const showFlag = (play: boolean) => (
 
 const others = ({ play, id, cls, display, handleBox }: Props) => (
   <div className={
-    `${play ? `${styles.box} ${styles[`${cls}`]}` : styles.boxDisable}`
+    `${`${styles.box} ${styles[`${cls}`]}`}`
   } onClick={() => handleBox(id)}>
     {display}
   </div>
