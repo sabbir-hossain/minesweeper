@@ -20,9 +20,9 @@ function Game() {
     function fetchGame() {
       loadingGame(dispatch)
         .then((game) => {
-          const data = processData(game);
+          const { mineCounter, data } = processData(game);
           setData(data);
-          gameStarted(dispatch);
+          gameStarted(dispatch, mineCounter);
         })
         .catch((error) => {
           console.error(error);

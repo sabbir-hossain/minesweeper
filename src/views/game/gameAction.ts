@@ -7,6 +7,8 @@ export const GAME_CONTINUING = 'GAME_CONTINUING';
 export const GAME_SUCCESS = 'GAME_SUCCESS';
 export const GAME_TIMEOUT = 'GAME_TIMEOUT';
 export const GAME_FAILED = 'GAME_FAILED';
+export const MINE_SELECTED = 'MINE_SELECTED';
+export const MINE_UNSELECTED = 'MINE_UNSELECTED';
 
 export const FLAG_SELECTED = 'FLAG_SELECTED';
 export const FLAG_UNSELECTED = 'FLAG_UNSELECTED';
@@ -17,8 +19,8 @@ export interface IGame {
   display: string;
 }
 
-export function gameStarted(dispatch: any) {
-    dispatch({type: GAME_STARTED});
+export function gameStarted(dispatch: any, totalMines: number) {
+    dispatch({type: GAME_STARTED, payload: { totalMines }});
 }
 
 export function loadingGame( dispatch: any) {
@@ -48,4 +50,8 @@ export function gameTimeout(dispatch: any) {
 
 export function gameFailed(dispatch: any) {
   return dispatch({type: GAME_FAILED});
+}
+
+export function mineFlagSelected(dispatch: any, findMineCount: number) {
+  return dispatch({type: MINE_SELECTED, payload: { findMineCount }})
 }

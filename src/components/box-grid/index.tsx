@@ -2,12 +2,12 @@ import { useState, useEffect, memo } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 
 import { showAdjacent, processData } from '../../commons/helper';
-import { gameFailed, IGame } from '../../views/game/gameAction';
+import { gameFailed, IGame, mineFlagSelected } from '../../views/game/gameAction';
 import Box from '../box';
 import styles from './box-grid.module.css';
 
 const BoxGrid = ({ data = [] }) => {
-  const { play, flagSelected } = useSelector(
+  const { play, flagSelected, findMineCount } = useSelector(
     (state: any) => state.gameReducer
   );
   const dispatch = useDispatch();
@@ -28,11 +28,12 @@ const BoxGrid = ({ data = [] }) => {
     const [a, b] = key.split('-');
     if( data[+a][+b].value === -1 && !flagSelected ) {
       gameFailed(dispatch);
-      const dt = processData(JSON.parse(JSON.stringify(data)), true);
+      const { data: dt}  = processData(JSON.parse(JSON.stringify(data)), true);
       setPuzzleData(dt);
     } else if( data[+a][+b].value === -1 && flagSelected ) {
-      data[+a][+b].display = 'show_flag';
+      data[+a][+b].display = data[+a][+b].display === 'show_flag' ? '' : 'show_flag';
       setPuzzleData(data);
+      mineFlagSelected(dispatch, findMineCount + 1);
     } else {
       const dt: IGame[][] = showAdjacent(data, +a, +b);
       setPuzzleData([...dt]);

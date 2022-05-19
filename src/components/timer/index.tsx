@@ -7,7 +7,7 @@ import { setFlagSelected, setFlagUnSelected } from '../../views/game/gameAction'
 import styles from './timer.module.css';
 
 export default function Timer() {
-  const { startTime, currentTime, totalTime, flagSelected, play, failed } = useSelector(
+  const { startTime, currentTime, totalTime, flagSelected, play, failed, findMineCount, totalMines } = useSelector(
     (state: any) => state.gameReducer
   );
   const dispatch = useDispatch();
@@ -31,9 +31,13 @@ export default function Timer() {
   }
 
   const setNumber = (num: number) => num < 10 ? `0${num}` : `${num}`;
-
+  // findMineCount, totalMines
   return (
     <>
+      <div className={styles.counter}>
+        {findMineCount} / { totalMines }
+      </div>
+
       <div>
         <button className={`${styles.flagBtn} ${flagSelected && styles.flagBtnSelected}`} onClick={toggleFlatBtn}>
           <img className={styles.flagIcoBtn} alt='flag-btn' src={'./flag-icon2.png'} />

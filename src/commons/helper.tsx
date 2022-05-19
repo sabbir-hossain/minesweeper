@@ -1,14 +1,4 @@
 export function findAdjacent(_data: any[], a: number, b: number, failed: boolean = false) {
-  if (_data[a][b] === -1 || _data[a][b].value === -1) {
-    _data[a][b] = {
-      value: -1,
-      cls: 'range-0',
-      // display: '.'
-      display: failed ? 'show_mine' : ''
-    };
-    return _data;
-  }
-
   let count = 0;
 
   // top left
@@ -69,68 +59,78 @@ export function showAdjacent(_data: any[], a: number, b: number) {
   _data[a][b] = {
     value: _data[a][b].value,
     cls: `range-${_data[a][b].value}`,
-    display: _data[a][b].value
+    display: _data[a][b].value !== 0 ? _data[a][b] : ''
   };
 
   // top left
   if (_data[a - 1] && _data[a - 1][b - 1] && _data[a - 1][b - 1].value !== -1) {
     _data[a - 1][b].cls = `range-${_data[a - 1][b].value}`;
-    _data[a - 1][b].display = _data[a - 1][b].value;
+    _data[a - 1][b].display = _data[a - 1][b].value ? _data[a - 1][b].value : '';
   }
 
   // top middle
   if (_data[a][b - 1] && _data[a][b - 1].value !== -1) {
     _data[a][b - 1].cls = `range-${_data[a][b - 1].value}`;
-    _data[a][b - 1].display = _data[a][b - 1].value;
+    _data[a][b - 1].display = _data[a][b - 1].value ? _data[a][b - 1].value : '';
   }
 
   // top right
   if (_data[a + 1] && _data[a + 1][b - 1] && _data[a + 1][b - 1].value !== -1) {
     _data[a + 1][b - 1].cls = `range-${_data[a + 1][b - 1].value}`;
-    _data[a + 1][b - 1].display = _data[a + 1][b - 1].value;
+    _data[a + 1][b - 1].display = _data[a + 1][b - 1].value ? _data[a + 1][b - 1].value : '';
   }
 
   // middle left
   if (_data[a - 1] && _data[a - 1][b] && _data[a - 1][b].value !== -1) {
     _data[a - 1][b].cls = `range-${_data[a - 1][b].value}`;
-    _data[a - 1][b].display = _data[a - 1][b].value;
+    _data[a - 1][b].display = _data[a - 1][b].value ? _data[a - 1][b].value : '';
   }
 
   // middle right
   if (_data[a][b + 1] && _data[a][b + 1].value !== -1) {
     _data[a][b + 1].cls = `range-${_data[a][b + 1].value}`;
-    _data[a][b + 1].display = _data[a][b + 1].value;
+    _data[a][b + 1].display = _data[a][b + 1].value ? _data[a][b + 1].value : '';
   }
 
   // bottom left
   if (_data[a - 1] && _data[a - 1][b + 1] && _data[a - 1][b + 1].value !== -1) {
     _data[a - 1][b + 1].cls = `range-${_data[a - 1][b + 1].value}`;
-    _data[a - 1][b + 1].display = _data[a - 1][b + 1].value;
+    _data[a - 1][b + 1].display = _data[a - 1][b + 1].value ? _data[a - 1][b + 1].value : '';
   }
 
   // bottom middle
   if (_data[a + 1] && _data[a + 1][b] && _data[a + 1][b].value !== -1) {
     _data[a + 1][b].cls = `range-${_data[a + 1][b].value}`;
-    _data[a + 1][b].display = _data[a + 1][b].value;
+    _data[a + 1][b].display = _data[a + 1][b].value !== 0 ? _data[a + 1][b].value : '';
   }
 
   // bottom right
   if (_data[a + 1] && _data[a + 1][b + 1] && _data[a + 1][b + 1].value !== -1) {
     _data[a + 1][b + 1].cls = `range-${_data[a + 1][b + 1].value}`;
-    _data[a + 1][b + 1].display = _data[a + 1][b + 1].value;
+    _data[a + 1][b + 1].display = _data[a + 1][b + 1].value ? _data[a + 1][b + 1].value : '';
   }
 
   return _data;
 }
 
 export function processData(_data: any, failed: boolean = false) {
+  let mineCounter = 0;
   for (let i = 0; i < _data.length; i++) {
     for (let j = 0; j < _data[i].length; j++) {
-      findAdjacent(_data, i, j, failed);
+      if (_data[i][j] === -1 || _data[i][j].value === -1) {
+        mineCounter++;
+        _data[i][j] = {
+          value: -1,
+          cls: 'range-0',
+          display: failed ? 'show_mine' : ''
+        };
+      } else {
+        findAdjacent(_data, i, j, failed);
+      }
     }
   }
 
-  return _data;
+  return { mineCounter, data: _data };
 }
 
 export function generateTimer(startTime: number, currentTime: number, totalTime: number) {

@@ -8,6 +8,7 @@ import {
   GAME_FAILED,
   FLAG_SELECTED,
   FLAG_UNSELECTED,
+  MINE_SELECTED,
 } from './gameAction';
 
 export const oneMinute = 60 * 1000;
@@ -20,6 +21,8 @@ const initialState = {
   startTime: null,
   currentTime: null,
   totalTime: null,
+  findMineCount: 0,
+  totalMines: 0,
   play: false,
   success: false,
   failed: false,
@@ -54,12 +57,19 @@ export const gameReducer = (state = initialState, action: any) => {
         flagSelected: false
       }
     }
+    case MINE_SELECTED: {
+      return {
+        ...state,
+        findMineCount: action.payload.findMineCount
+      }
+    }
     case GAME_STARTED: {
       return {
         ...state,
         startTime: Date.now(),
         currentTime: Date.now(),
         totalTime: oneMinute,
+        totalMines: action.payload.totalMines,
         play: true,
         success: false,
         failed: false,
