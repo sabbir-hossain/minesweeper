@@ -13,10 +13,10 @@ export interface Props extends React.ComponentPropsWithoutRef<any> {
   handleBox: any
 }
 
-const showDisable = (id: string) => {
-  const [a, b] = id.split('-');
-  return `${styles.boxDisable} ${ (+a + +b) % 2 === 0 && styles.boxDisableEven}`
-}
+// const showDisable = (id: string) => {
+//   const [a, b] = id.split('-');
+//   return `${styles.boxDisable} ${(+a + +b) % 2 === 0 && styles.boxDisableEven}`
+// }
 
 const showMine = (play: boolean) => (
   <div className={`${play ? styles.box : styles.boxDisable}`}>
@@ -24,13 +24,13 @@ const showMine = (play: boolean) => (
   </div>
 );
 
-const showFlag = (play: boolean) => (
-  <div className={` ${play ? styles.box : styles.boxDisable}`}>
+const showFlag = ({ play, id, handleBox }: Props) => (
+  <div className={` ${play ? styles.box : styles.boxDisable}`} onClick={() => handleBox(id)}>
     <img alt='flag' src={'./flag-icon2.png'} className={styles.boxImg} />
   </div>
 );
 
-const others = ({ play, id, cls, display, handleBox }: Props) => (
+const others = ({ id, cls, display, handleBox }: Props) => (
   <div className={
     `${`${styles.box} ${styles[`${cls}`]}`}`
   } onClick={() => handleBox(id)}>
@@ -45,7 +45,7 @@ const Box = ({ id, cls, display, handleBox }: Props) => {
   );
 
   return display === 'show_mine' ? showMine(play)
-    : display === 'show_flag' ? showFlag(play)
+    : display === 'show_flag' ? showFlag({ play, id, cls, display, handleBox })
       : others({ play, id, cls, display, handleBox });
 };
 

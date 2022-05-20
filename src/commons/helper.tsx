@@ -45,7 +45,9 @@ export function findAdjacent(_data: any[], a: number, b: number, failed: boolean
     value: count,
     cls: failed ? `range-${count}` : 'range-0',
     // display: ''
-    display: failed ? count : ''
+    display: failed 
+      ? count !== 0 ? count : '-' 
+      : ''
   };
 
   return _data;
@@ -55,59 +57,59 @@ export function showAdjacent(_data: any[], a: number, b: number) {
   if (_data[a][b] === -1 || _data[a][b].value === -1) {
     return _data;
   }
-
+  const displayValue = _data[a][b].value !== 0 ? _data[a][b].value : '-';
   _data[a][b] = {
     value: _data[a][b].value,
-    cls: `range-${_data[a][b].value}`,
-    display: _data[a][b].value !== 0 ? _data[a][b] : ''
+    cls: displayValue !== '' ? `range-${_data[a][b].value}` : `range-0`,
+    display: displayValue
   };
 
   // top left
   if (_data[a - 1] && _data[a - 1][b - 1] && _data[a - 1][b - 1].value !== -1) {
     _data[a - 1][b].cls = `range-${_data[a - 1][b].value}`;
-    _data[a - 1][b].display = _data[a - 1][b].value ? _data[a - 1][b].value : '';
+    _data[a - 1][b].display = _data[a - 1][b].value ? _data[a - 1][b].value : '-';
   }
 
   // top middle
   if (_data[a][b - 1] && _data[a][b - 1].value !== -1) {
     _data[a][b - 1].cls = `range-${_data[a][b - 1].value}`;
-    _data[a][b - 1].display = _data[a][b - 1].value ? _data[a][b - 1].value : '';
+    _data[a][b - 1].display = _data[a][b - 1].value ? _data[a][b - 1].value : '-';
   }
 
   // top right
   if (_data[a + 1] && _data[a + 1][b - 1] && _data[a + 1][b - 1].value !== -1) {
     _data[a + 1][b - 1].cls = `range-${_data[a + 1][b - 1].value}`;
-    _data[a + 1][b - 1].display = _data[a + 1][b - 1].value ? _data[a + 1][b - 1].value : '';
+    _data[a + 1][b - 1].display = _data[a + 1][b - 1].value ? _data[a + 1][b - 1].value : '-';
   }
 
   // middle left
   if (_data[a - 1] && _data[a - 1][b] && _data[a - 1][b].value !== -1) {
     _data[a - 1][b].cls = `range-${_data[a - 1][b].value}`;
-    _data[a - 1][b].display = _data[a - 1][b].value ? _data[a - 1][b].value : '';
+    _data[a - 1][b].display = _data[a - 1][b].value ? _data[a - 1][b].value : '-';
   }
 
   // middle right
   if (_data[a][b + 1] && _data[a][b + 1].value !== -1) {
     _data[a][b + 1].cls = `range-${_data[a][b + 1].value}`;
-    _data[a][b + 1].display = _data[a][b + 1].value ? _data[a][b + 1].value : '';
+    _data[a][b + 1].display = _data[a][b + 1].value ? _data[a][b + 1].value : '-';
   }
 
   // bottom left
   if (_data[a - 1] && _data[a - 1][b + 1] && _data[a - 1][b + 1].value !== -1) {
     _data[a - 1][b + 1].cls = `range-${_data[a - 1][b + 1].value}`;
-    _data[a - 1][b + 1].display = _data[a - 1][b + 1].value ? _data[a - 1][b + 1].value : '';
+    _data[a - 1][b + 1].display = _data[a - 1][b + 1].value ? _data[a - 1][b + 1].value : '-';
   }
 
   // bottom middle
   if (_data[a + 1] && _data[a + 1][b] && _data[a + 1][b].value !== -1) {
     _data[a + 1][b].cls = `range-${_data[a + 1][b].value}`;
-    _data[a + 1][b].display = _data[a + 1][b].value !== 0 ? _data[a + 1][b].value : '';
+    _data[a + 1][b].display = _data[a + 1][b].value !== 0 ? _data[a + 1][b].value : '-';
   }
 
   // bottom right
   if (_data[a + 1] && _data[a + 1][b + 1] && _data[a + 1][b + 1].value !== -1) {
     _data[a + 1][b + 1].cls = `range-${_data[a + 1][b + 1].value}`;
-    _data[a + 1][b + 1].display = _data[a + 1][b + 1].value ? _data[a + 1][b + 1].value : '';
+    _data[a + 1][b + 1].display = _data[a + 1][b + 1].value ? _data[a + 1][b + 1].value : '-';
   }
 
   return _data;
