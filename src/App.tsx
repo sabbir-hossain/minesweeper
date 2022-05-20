@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Game from './views/game';
+import Game from './views/game/play';
 
 function App() {
   return (

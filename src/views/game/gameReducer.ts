@@ -68,7 +68,7 @@ export const gameReducer = (state = initialState, action: any) => {
         ...state,
         startTime: Date.now(),
         currentTime: Date.now(),
-        totalTime: oneMinute,
+        totalTime: twentyMinutes,
         totalMines: action.payload.totalMines,
         play: true,
         success: false,
