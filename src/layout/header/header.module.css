@@ -58,5 +58,5 @@ ul.headerMenu > li  a:hover {
 
 .options {
   display: flex;
-  margin-top: 13px;
+  margin: 13px auto auto auto;
 }

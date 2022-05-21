@@ -11,29 +11,32 @@ import {
   FLAG_UNSELECTED,
   MINE_SELECTED,
 } from './gameAction';
+import { IGameReducer, IGame } from './IGame';
+import { CustomKeyValue } from '../../commons/CustomKeyValue';
 
 export const oneMinute = 60 * 1000;
+export const twoMinute = oneMinute * 2;
 export const fiveMinutes = oneMinute * 5;
 export const tenMinutes = oneMinute * 10;
 export const twentyMinutes = oneMinute * 20;
 export const thirtyMinutes = oneMinute * 30;
 
-const initialState = {
+const initialState: IGameReducer = {
   isLoaded: false,
   playSelected: false,
-  startTime: null,
-  currentTime: null,
-  totalTime: null,
+  startTime: 0,
+  currentTime: 0,
+  totalTime: 0,
   findMineCount: 0,
   totalMines: 0,
   play: false,
   success: false,
   failed: false,
-  failedReason: null,
+  failedReason: '',
   flagSelected: false,
 };
 
-export const gameReducer = (state = initialState, action: any) => {
+export const gameReducer = (state: IGameReducer = initialState, action: CustomKeyValue) => {
   switch (action.type) {
     case LOADING_GAME: {
       return {
@@ -80,7 +83,7 @@ export const gameReducer = (state = initialState, action: any) => {
         ...state,
         startTime: Date.now(),
         currentTime: Date.now(),
-        totalTime: twentyMinutes,
+        totalTime: tenMinutes,
         totalMines: action.payload.totalMines,
         play: true,
         success: false,

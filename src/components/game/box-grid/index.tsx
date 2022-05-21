@@ -2,7 +2,8 @@ import { useState, useEffect, memo } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 
 import { showAdjacent, processData } from '../../../commons/helper';
-import { gameFailed, IGame, mineFlagSelected } from '../../../views/game/gameAction';
+import { gameFailed, mineFlagSelected } from '../../../views/game/gameAction';
+import { IGame } from '../../../views/game/IGame';
 import Box from '../box';
 import styles from './box-grid.module.css';
 

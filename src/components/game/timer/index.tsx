@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 
+import * as Notification from '../../notification';
 import { generateTimer } from '../../../commons/helper';
 import { setFlagSelected, setFlagUnSelected } from '../../../views/game/gameAction';
 
@@ -14,17 +15,33 @@ export default function Timer() {
 
   const [_minutes, setMinutes] = useState(0);
   const [_seconds, setSeconds] = useState(0);
+  const halfTime = Math.floor( totalTime / ( 2 * 1000 ) );
 
   useEffect(() => {
-    const { minutes, seconds } = generateTimer(startTime, currentTime, totalTime);
+    const showToastrNotification = (minutes: number, seconds: number, remainingTime: number) => {
+      if( minutes !== 0) {
+        if( remainingTime === halfTime ) {
+          Notification.info(`half time already passed`)
+        } 
+      }
+      else {
+        if( seconds <= 20 && seconds > 0 ) {
+          seconds % 3 === 0 && Notification.warning(`${seconds} (s) remaining`);
+        }
+      }
+    }
+
+    const { minutes, seconds, remainingTime } = generateTimer(startTime, currentTime, totalTime);
     if ((!play && failed) || (minutes <= 0 && seconds <= 0)) {
       setMinutes(0);
       setSeconds(0);
     } else {
       setMinutes(minutes);
       setSeconds(seconds);
+      showToastrNotification(minutes, seconds, remainingTime);
     }
-  }, [startTime, currentTime, totalTime, play, failed, dispatch]);
+    
+  }, [startTime, currentTime, totalTime, halfTime, play, failed, dispatch]);
 
   const toggleFlatBtn = () => {
     flagSelected ? setFlagUnSelected(dispatch) : setFlagSelected(dispatch);

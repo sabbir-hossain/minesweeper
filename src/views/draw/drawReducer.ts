@@ -3,14 +3,16 @@ import {
   LOADING_VIEW_COMPLETE,
   SET_MINE,
 } from './drawAction';
+import { IDrawReducer } from './IDraw';
+import { CustomKeyValue } from '../../commons/CustomKeyValue';
 
-const initialState = {
+const initialState: IDrawReducer = {
   isLoaded: false,
   drawSelected: false,
   totalMines: 0,
 }
 
-export const drawReducer = (state = initialState, action: any) => {
+export const drawReducer = (state = initialState, action: CustomKeyValue) => {
   switch (action.type) {
     case LOADING_VIEW: {
       return {

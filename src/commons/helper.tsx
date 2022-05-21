@@ -140,10 +140,10 @@ export function generateTimer(startTime: number, currentTime: number, totalTime:
   const remainingTime = (totalTime - timeDiff) / 1000;
   const minutes = Math.floor(remainingTime / 60);
   const seconds = Math.floor(remainingTime % 60);
-  return { minutes, seconds };
+  return { minutes, seconds, remainingTime: Math.floor(remainingTime) };
 }
 
 export function getRemainingTime(startTime: number, currentTime: number, totalTime: number) {
   const timeDiff = currentTime - startTime;
-  return (totalTime - timeDiff) / 1000;
+  return Math.floor((totalTime - timeDiff) / 1000);
 }
