@@ -1,0 +1,21 @@
+.box {
+  width: 25px;
+  height: 25px;
+  margin: 0;
+  text-align: center;
+  color: #f0f0f0;
+  cursor: pointer;
+}
+
+.box:hover {
+  opacity: 0.8;
+}
+
+.boxImg {
+  width: 25px;
+  height: 25px;
+  background-image: none;
+}
+
+.range-0 { background-color:#66a347; }
+.range-0-even { background-color:#729362; }

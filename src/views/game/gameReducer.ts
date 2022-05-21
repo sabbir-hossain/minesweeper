@@ -1,4 +1,5 @@
 import { 
+  RESET_GAME,
   LOADING_GAME,
   LOADING_GAME_COMPLETE,
   GAME_STARTED,
@@ -15,9 +16,11 @@ export const oneMinute = 60 * 1000;
 export const fiveMinutes = oneMinute * 5;
 export const tenMinutes = oneMinute * 10;
 export const twentyMinutes = oneMinute * 20;
+export const thirtyMinutes = oneMinute * 30;
 
 const initialState = {
   isLoaded: false,
+  playSelected: false,
   startTime: null,
   currentTime: null,
   totalTime: null,
@@ -39,10 +42,19 @@ export const gameReducer = (state = initialState, action: any) => {
         isLoaded: false,
       }
     }
+    case RESET_GAME: {
+      return {
+        ...state,
+        ...initialState,
+        isLoaded: false,
+        playSelected: false,
+      }
+    }
     case LOADING_GAME_COMPLETE: {
       return {
         ...state,
         isLoaded: true,
+        playSelected: true,
       }
     }
     case FLAG_SELECTED: {

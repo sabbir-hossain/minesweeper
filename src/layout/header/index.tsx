@@ -1,8 +1,16 @@
-import { memo } from 'react'
-import Timer from '../../components/timer';
+import { memo } from 'react';
+import { Link } from 'react-router-dom';
+import { useSelector } from "react-redux";
+
+import Timer from '../../components/game/timer';
+import MineCounter from '../../components/draw/counter';
 import styles from './header.module.css';
 
-const Header = ({ active='' }) => {
+const Header = ({ active = '' }) => {
+  const { playSelected } = useSelector(
+    (state: any) => state.gameReducer
+  );
+
   return (
     <header className={styles.headerContents}>
       <div className={styles.contextHeader}>
@@ -11,12 +19,17 @@ const Header = ({ active='' }) => {
         </div>
 
         <div className={styles.options}>
-          <Timer />
+          { playSelected ? <Timer /> : <MineCounter /> }
         </div>
 
         <ul className={styles.headerMenu}>
-          <li className={`${styles.routeName} ${active === 'play' && styles.activeRoute}` }>Play</li>
-          <li className={`${styles.routeName} ${active === 'create' && styles.activeRoute}` }>Create</li>
+          <li className={`${styles.routeName} ${active === 'play' && styles.activeRoute}`}>
+            <Link to="/">Play</Link>
+          </li>
+
+          <li className={`${styles.routeName} ${active === 'create' && styles.activeRoute}`}>
+            <Link to="/draw">Create</Link>
+          </li>
         </ul>
       </div>
     </header>

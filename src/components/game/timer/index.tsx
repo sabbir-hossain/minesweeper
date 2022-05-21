@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 
-import { generateTimer } from '../../commons/helper';
-import { setFlagSelected, setFlagUnSelected } from '../../views/game/gameAction';
+import { generateTimer } from '../../../commons/helper';
+import { setFlagSelected, setFlagUnSelected } from '../../../views/game/gameAction';
 
 import styles from './timer.module.css';
 
@@ -31,11 +31,11 @@ export default function Timer() {
   }
 
   const setNumber = (num: number) => num < 10 ? `0${num}` : `${num}`;
-  // findMineCount, totalMines
+
   return (
     <>
       <div className={styles.counter}>
-        {findMineCount} / { totalMines }
+        {findMineCount} / {totalMines}
       </div>
 
       <div>

@@ -1,8 +1,8 @@
 import { useState, useEffect, memo } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 
-import { showAdjacent, processData } from '../../commons/helper';
-import { gameFailed, IGame, mineFlagSelected } from '../../views/game/gameAction';
+import { showAdjacent, processData } from '../../../commons/helper';
+import { gameFailed, IGame, mineFlagSelected } from '../../../views/game/gameAction';
 import Box from '../box';
 import styles from './box-grid.module.css';
 
@@ -25,24 +25,25 @@ const BoxGrid = ({ data = [] }) => {
 
     const data = JSON.parse(JSON.stringify(puzzleData));
     
-    const [a, b] = key.split('-');
-    if (data[+a][+b].value === -1 && !flagSelected) {
+    // const [a, b] = key.split('-');
+    const [a, b] = key.split('-').map((num) => parseInt(num, 10));
+    if (data[a][b].value === -1 && !flagSelected) {
       gameFailed(dispatch);
       const { data: dt } = processData(data, true);
       setPuzzleData(dt);
     }
-    else if (data[+a][+b].value === -1 && flagSelected) {
-      data[+a][+b].display = data[+a][+b].display === 'show_flag' ? '' : 'show_flag';
+    else if (data[a][b].value === -1 && flagSelected) {
+      data[a][b].display = data[a][b].display === 'show_flag' ? '' : 'show_flag';
       setPuzzleData(data);
       mineFlagSelected(dispatch, findMineCount + 1);
     }
     else if (flagSelected) {
-      data[+a][+b].display = data[+a][+b].display === 'show_flag' ? '' : 'show_flag';
+      data[a][b].display = data[a][b].display === 'show_flag' ? '' : 'show_flag';
       setPuzzleData(data);
-      console.log('22222 : ', { flagSelected, display: data[+a][+b].display });
+      console.log('22222 : ', { flagSelected, display: data[a][b].display });
     }
     else {
-      const dt: IGame[][] = showAdjacent(data, +a, +b);
+      const dt: IGame[][] = showAdjacent(data, a, b);
       setPuzzleData([...dt]);
     }
   }

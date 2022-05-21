@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import * as Notification from '../../../components/notification';
 import { loadingGame, gameStarted, countdown, gameTimeout, } from '../gameAction';
 import { processData, getRemainingTime } from '../../../commons/helper';
-import BoxGrid from '../../../components/box-grid';
+import BoxGrid from '../../../components/game/box-grid';
 
 import Layout from '../../../layout';
 import styles from './play.module.css';
