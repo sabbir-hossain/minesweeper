@@ -3,7 +3,7 @@ import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import { Dispatch } from "redux";
 
 import * as Notification from '../../../components/notification';
-import { gameLoadingAction, gameLoadingComplete, loadingGame, gameStarted, countdown, gameTimeout, gameFailed } from '../gameAction';
+import { gameLoadingAction, gameLoadingComplete, loadingGame, gameStarted, countdown, gameTimeout } from '../gameAction';
 import { processData, getRemainingTime } from '../../../commons/helper';
 import BoxGrid from '../../../components/game/box-grid';
 import { IGameReducer } from '../IGame';
