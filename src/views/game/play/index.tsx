@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
+import { Dispatch } from "redux";
 
 import * as Notification from '../../../components/notification';
 import { gameLoadingAction, gameLoadingComplete, loadingGame, gameStarted, countdown, gameTimeout, } from '../gameAction';
 import { processData, getRemainingTime } from '../../../commons/helper';
 import BoxGrid from '../../../components/game/box-grid';
 import { IGameReducer } from '../IGame';
-import { AppDispatch } from '../../../store';
 
 import Layout from '../../../layout';
 import styles from './play.module.css';
@@ -15,24 +15,23 @@ function Game() {
   const { isLoaded, play, failed, success, startTime, currentTime, totalTime }: IGameReducer = useSelector(
     (state: any) => state.gameReducer as IGameReducer
   );
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch: Dispatch<any> = useDispatch();
   const [data, setData] = useState([]);
 
   useEffect(() => {
     function fetchGame() {
-      dispatch(gameLoadingAction());
+      dispatch( gameLoadingAction() );
       loadingGame()
         .then((game) => {
+          dispatch( gameLoadingComplete () );
           const { mineCounter, data } = processData(game);
           setData(data);
-          // gameStarted(dispatch, mineCounter);
           dispatch( gameStarted(mineCounter) );
         })
         .catch((error) => {
           console.error(error);
           setData([]);
         });
-      // dispatch(loadingGame());
     }
 
     !isLoaded && fetchGame();
@@ -43,10 +42,9 @@ function Game() {
       const remainingTime = getRemainingTime(startTime, currentTime, totalTime);
       if (remainingTime <= 0 && startTime !== 0) {
         Notification.error('timeout, game over');
-        gameTimeout(dispatch);
-        // dispatch()
+        dispatch( gameTimeout() );
       } else {
-        countdown(dispatch);
+        dispatch( countdown() );
       }
 
       if ((!play && failed) || success) {

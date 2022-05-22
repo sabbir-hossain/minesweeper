@@ -11,8 +11,8 @@ import {
   FLAG_UNSELECTED,
   MINE_SELECTED,
 } from './gameAction';
-import { IGameReducer, IGame } from './IGame';
-import { CustomKeyValue } from '../../commons/CustomKeyValue';
+import { IGameReducer } from './IGame';
+import { CustomKeyValue } from '../../commons/IShare';
 
 export const oneMinute = 60 * 1000;
 export const twoMinute = oneMinute * 2;
@@ -75,7 +75,7 @@ export const gameReducer = (state: IGameReducer = initialState, action: CustomKe
     case MINE_SELECTED: {
       return {
         ...state,
-        findMineCount: action.payload.findMineCount
+        findMineCount: action.payload?.findMineCount || 0
       }
     }
     case GAME_STARTED: {
@@ -84,7 +84,7 @@ export const gameReducer = (state: IGameReducer = initialState, action: CustomKe
         startTime: Date.now(),
         currentTime: Date.now(),
         totalTime: tenMinutes,
-        totalMines: action.payload.totalMines,
+        totalMines: action.payload?.totalMines || 0,
         play: true,
         success: false,
         failed: false,

@@ -4,7 +4,7 @@ import {
   SET_MINE,
 } from './drawAction';
 import { IDrawReducer } from './IDraw';
-import { CustomKeyValue } from '../../commons/CustomKeyValue';
+import { CustomKeyValue } from '../../commons/IShare';
 
 const initialState: IDrawReducer = {
   isLoaded: false,
@@ -32,7 +32,7 @@ export const drawReducer = (state = initialState, action: CustomKeyValue) => {
     case SET_MINE: {
       return {
         ...state,
-        totalMines: action.payload.total
+        totalMines: action.payload?.total || 0
       }
     }
     default:

@@ -1,6 +1,5 @@
 import { getPuzzles } from "../../service/get";
-import { CustomKeyValue } from "../../commons/CustomKeyValue";
-import { AppDispatch } from '../../store';
+import { CustomDispatchType } from '../../commons/IShare';
 
 export const RESET_GAME = 'RESET_GAME';
 export const LOADING_GAME = 'LOADING_GAME';
@@ -16,56 +15,44 @@ export const MINE_UNSELECTED = 'MINE_UNSELECTED';
 export const FLAG_SELECTED = 'FLAG_SELECTED';
 export const FLAG_UNSELECTED = 'FLAG_UNSELECTED';
 
-/*
-export const savingProduct = (formData) => (dispatch, getState) => {
-  dispatch(savingProductPending());
-  return saveProduct(formData)
-    .then((response) => dispatch(savingProductSuccess(response)))
-    .catch((error) => dispatch(savingProductError(error)));
-};
-*/
+export const gameLoadingAction = () => (dispatch: CustomDispatchType) => {
+  dispatch({ type: LOADING_GAME });
+}
 
-export const resetGame = () => () => (dispatch: AppDispatch) => dispatch({ type: RESET_GAME });
+export const gameLoadingComplete = () => (dispatch:  CustomDispatchType) => {
+  dispatch({ type: LOADING_GAME_COMPLETE });
+}
 
-export const gameStarted = (totalMines: number) => (dispatch: AppDispatch) => {
+export const resetGame = () => (dispatch: CustomDispatchType ) => {
+  dispatch({ type: RESET_GAME })
+}
+
+export const gameStarted = (totalMines: number) => (dispatch: CustomDispatchType) => {
   dispatch({ type: GAME_STARTED, payload: { totalMines } });
 }
 
-export const gameLoadingAction = () => (dispatch: AppDispatch) => dispatch({ type: LOADING_GAME });
-
-export const gameLoadingComplete = () => (dispatch: AppDispatch) => dispatch({ type: LOADING_GAME_COMPLETE });
-
-
 export const loadingGame = () => getPuzzles()
-// {
-//   // dispatch(gameLoading());
-//   return 
-//     // .then((game) => {
-//     //   dispatch(gameLoadingComplete());
-//     //   dispatch(gameStarted())
-//     // })
-// }
 
-export const setFlagSelected = () => (dispatch: AppDispatch) => {
+export const setFlagSelected = () => (dispatch: CustomDispatchType) => {
   dispatch({ type: FLAG_SELECTED })
 }
 
-export const setFlagUnSelected = () => (dispatch: AppDispatch) => {
+export const setFlagUnSelected = () => (dispatch:  CustomDispatchType) => {
   dispatch({ type: FLAG_UNSELECTED })
 }
 
-export const countdown = () => (dispatch: AppDispatch) => {
+export const countdown = () => (dispatch: CustomDispatchType) => {
   dispatch({ type: GAME_CONTINUING });
 }
 
-export const gameTimeout = () => (dispatch: AppDispatch) => {
+export const gameTimeout = () => (dispatch:CustomDispatchType) => {
   dispatch({ type: GAME_TIMEOUT });
 }
 
-export const gameFailed = () => (dispatch: AppDispatch) => {
+export const gameFailed = () => (dispatch: CustomDispatchType) => {
   dispatch({ type: GAME_FAILED });
 }
 
-export const mineFlagSelected = () => (dispatch: AppDispatch, findMineCount: number) => {
+export const mineFlagSelected = (findMineCount: number) => (dispatch: CustomDispatchType) => {
   dispatch({ type: MINE_SELECTED, payload: { findMineCount } })
 }

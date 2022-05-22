@@ -7,38 +7,38 @@ import { localStorageKeyName } from '../../../service/get';
 import DrawBoxGrid from '../../../components/draw/draw-box-grid';
 import Layout from '../../../layout';
 import styles from './create.module.css';
+import { Dispatch } from 'redux';
 
 const maxX = 20;
 const maxY = 48;
 
 export default function Draw() {
-  const dispatch = useDispatch();
+  const dispatch: Dispatch<any> = useDispatch();
 
   const [totalMine, setTotalMine] = useState<number>(0);
   const [data, setData] = useState<number[][]>([]);
 
   useEffect(() => {
-    resetGame(dispatch);
+    dispatch(resetGame());
     const dt: number[][] = Array.from({ length: maxX }).map(() => Array.from({ length: maxY }).fill(0)) as number[][];
     setData(dt);
-    
   }, [dispatch]);
 
   const handleBoxSelect = (key: string) => {
     const [a, b] = key.split('-').map((num) => parseInt(num, 10));
     const dt = JSON.parse(JSON.stringify(data));
     let _totalMine = totalMine;
-    if(dt[a][b] === -1) {
-      _totalMine = totalMine - 1;      
+    if (dt[a][b] === -1) {
+      _totalMine = totalMine - 1;
       dt[a][b] = 0;
     } else {
-      _totalMine = totalMine + 1; 
+      _totalMine = totalMine + 1;
       dt[a][b] = -1;
     }
 
     window.localStorage.setItem(localStorageKeyName, JSON.stringify(dt));
     setData(dt);
-    setMineAction(dispatch, _totalMine);
+    dispatch(setMineAction(_totalMine));
     setTotalMine(_totalMine);
   }
 

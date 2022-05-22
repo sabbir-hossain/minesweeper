@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
+import { Dispatch } from 'redux';
 
 import * as Notification from '../../notification';
 import { generateTimer } from '../../../commons/helper';
@@ -11,7 +12,7 @@ export default function Timer() {
   const { startTime, currentTime, totalTime, flagSelected, play, failed, findMineCount, totalMines } = useSelector(
     (state: any) => state.gameReducer
   );
-  const dispatch = useDispatch();
+  const dispatch: Dispatch<any> = useDispatch();
 
   const [_minutes, setMinutes] = useState(0);
   const [_seconds, setSeconds] = useState(0);
@@ -44,7 +45,7 @@ export default function Timer() {
   }, [startTime, currentTime, totalTime, halfTime, play, failed, dispatch]);
 
   const toggleFlatBtn = () => {
-    flagSelected ? setFlagUnSelected(dispatch) : setFlagSelected(dispatch);
+    flagSelected ? dispatch(setFlagUnSelected()) : dispatch(setFlagSelected());
   }
 
   const setNumber = (num: number) => num < 10 ? `0${num}` : `${num}`;
