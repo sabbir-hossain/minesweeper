@@ -83,7 +83,7 @@ export const gameReducer = (state: IGameReducer = initialState, action: ICustomA
         ...state,
         startTime: Date.now(),
         currentTime: Date.now(),
-        totalTime: tenMinutes,
+        totalTime: twoMinute,
         totalMines: action.payload?.totalMines || 0,
         play: true,
         success: false,
@@ -103,6 +103,7 @@ export const gameReducer = (state: IGameReducer = initialState, action: ICustomA
         play: false,
         success: true,
         failed: false,
+        failedReason: '',
       }
     }
     case GAME_TIMEOUT: {

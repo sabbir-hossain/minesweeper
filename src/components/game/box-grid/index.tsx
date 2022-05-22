@@ -2,17 +2,20 @@ import { useState, useEffect, memo } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { Dispatch } from 'redux';
 
+import * as Notification from '../../notification';
 import { showAdjacent, processData } from '../../../commons/helper';
-import { gameFailed, mineFlagSelected } from '../../../views/game/gameAction';
-import { IGame } from '../../../views/game/IGame';
+import { gameFailed, mineFlagSelected, gameSuccess } from '../../../views/game/gameAction';
+import { IGame, IGameReducer } from '../../../views/game/IGame';
 import Box from '../box';
 import styles from './box-grid.module.css';
 
 
 const BoxGrid = ({ data = [] }) => {
-  const { play, flagSelected, findMineCount } = useSelector(
-    (state: any) => state.gameReducer
+  const { play, flagSelected, findMineCount, totalMines } = useSelector(
+    (state: any) => state.gameReducer as IGameReducer
   );
+
+  const [solveMineCount, setSolveMineCount] = useState(findMineCount);
 
   const dispatch: Dispatch<any> = useDispatch();
 
@@ -27,18 +30,32 @@ const BoxGrid = ({ data = [] }) => {
       return;
     }
 
+    let selectedMine = solveMineCount;
     const data = JSON.parse(JSON.stringify(puzzleData));
     
     const [a, b] = key.split('-').map((num) => parseInt(num, 10));
     if (data[a][b].value === -1 && !flagSelected) {
       dispatch( gameFailed() );
-      const { data: dt } = processData(data, true);
+      const { data: dt } = processData(data, 'failed');
       setPuzzleData(dt);
     }
     else if (data[a][b].value === -1 && flagSelected) {
-      data[a][b].display = data[a][b].display === 'show_flag' ? '' : 'show_flag';
+      if( data[a][b].display === 'show_flag' ) {
+        data[a][b].display = '';
+        selectedMine -= 1;
+      } else {
+        data[a][b].display = 'show_flag';
+        selectedMine += 1;
+
+        if( selectedMine === totalMines) {
+          dispatch( gameSuccess() );
+          const { data: dt } = processData(data, 'success');
+          setPuzzleData(dt);
+          Notification.success('Congratulation, you have found all mine(s)');
+        }
+
+      }
       setPuzzleData(data);
-      dispatch( mineFlagSelected(findMineCount + 1) );
     }
     else if (flagSelected) {
       data[a][b].display = data[a][b].display === 'show_flag' ? '' : 'show_flag';
@@ -48,6 +65,9 @@ const BoxGrid = ({ data = [] }) => {
       const dt: IGame[][] = showAdjacent(data, a, b);
       setPuzzleData([...dt]);
     }
+    
+    setSolveMineCount(selectedMine);
+    dispatch( mineFlagSelected(selectedMine) );
   }
 
   return (

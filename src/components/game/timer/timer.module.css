@@ -5,6 +5,7 @@
   padding: 0;
   margin-left: 10px;
   cursor: pointer;
+  background-color: #fff;
 }
 
 .flagBtn:hover {
@@ -19,11 +20,19 @@
 .flagIcoBtn {
   width: 30px;
   height: 20px;
+  padding: 2px;
 }
 
+.flagIcoBtn2 {
+  margin-top: -10px;
+  height: 35px;
+  background-color: #077844;
+}
+
+
 .counter {
-  margin-left: 20px;
-  margin-right: 20px;
+  margin-left: 25px;
+  margin-right: 25px;
   margin-top: 5px;
   letter-spacing: 5px;
   font-family: 'Grape Nuts', cursive;

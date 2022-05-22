@@ -3,7 +3,7 @@ import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import { Dispatch } from "redux";
 
 import * as Notification from '../../../components/notification';
-import { gameLoadingAction, gameLoadingComplete, loadingGame, gameStarted, countdown, gameTimeout, } from '../gameAction';
+import { gameLoadingAction, gameLoadingComplete, loadingGame, gameStarted, countdown, gameTimeout, gameFailed } from '../gameAction';
 import { processData, getRemainingTime } from '../../../commons/helper';
 import BoxGrid from '../../../components/game/box-grid';
 import { IGameReducer } from '../IGame';
@@ -21,13 +21,13 @@ function Game() {
 
   useEffect(() => {
     function fetchGame() {
-      dispatch( gameLoadingAction() );
+      dispatch(gameLoadingAction());
       loadingGame()
         .then((game) => {
-          dispatch( gameLoadingComplete () );
+          dispatch(gameLoadingComplete());
           const { mineCounter, data } = processData(game);
           setData(data);
-          dispatch( gameStarted(mineCounter) );
+          dispatch(gameStarted(mineCounter));
         })
         .catch((error) => {
           console.error(error);
@@ -43,13 +43,12 @@ function Game() {
       const remainingTime = getRemainingTime(startTime, currentTime, totalTime);
       if (remainingTime <= 0 && startTime !== 0) {
         Notification.error('timeout, game over');
-        dispatch( gameTimeout() );
-      } else {
-        dispatch( countdown() );
-      }
-
-      if ((!play && failed) || success) {
+        dispatch(gameTimeout());
+      } else if (success || (!play && failed)) {
         clearInterval(counterInterval);
+      }
+      else {
+        dispatch(countdown());
       }
     }, 1000)
 

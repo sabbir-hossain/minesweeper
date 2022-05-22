@@ -1,4 +1,4 @@
-export function findAdjacent(_data: any[], a: number, b: number, failed: boolean = false) {
+export function findAdjacent(_data: any[], a: number, b: number) {
   let count = 0;
 
   // top left
@@ -43,11 +43,8 @@ export function findAdjacent(_data: any[], a: number, b: number, failed: boolean
 
   _data[a][b] = {
     value: count,
-    cls: failed ? `range-${count}` : 'range-0',
-    // display: ''
-    display: failed 
-      ? count !== 0 ? count : '-' 
-      : ''
+    cls: 'range-0',
+    display: ''
   };
 
   return _data;
@@ -115,7 +112,7 @@ export function showAdjacent(_data: any[], a: number, b: number) {
   return _data;
 }
 
-export function processData(_data: any, failed: boolean = false) {
+export function processData(_data: any, status: string = '') {
   let mineCounter = 0;
   for (let i = 0; i < _data.length; i++) {
     for (let j = 0; j < _data[i].length; j++) {
@@ -124,10 +121,19 @@ export function processData(_data: any, failed: boolean = false) {
         _data[i][j] = {
           value: -1,
           cls: 'range-0',
-          display: failed ? 'show_mine' : ''
+          display: status === 'failed' ? 'show_mine' 
+            : status === 'success' ? 'show_flag' : ''
         };
       } else {
-        findAdjacent(_data, i, j, failed);
+        if (status !== '') {
+          _data[i][j] = {
+            value: -1,
+            cls: 'range-0',
+            display: ''
+          };
+        } else {
+          findAdjacent(_data, i, j);
+        }
       }
     }
   }

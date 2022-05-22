@@ -56,3 +56,7 @@ export const gameFailed = () => (dispatch: CustomDispatchType) => {
 export const mineFlagSelected = (findMineCount: number) => (dispatch: CustomDispatchType) => {
   dispatch({ type: MINE_SELECTED, payload: { findMineCount } })
 }
+
+export const gameSuccess = () => (dispatch: CustomDispatchType) => {
+  dispatch({ type: GAME_SUCCESS });
+}

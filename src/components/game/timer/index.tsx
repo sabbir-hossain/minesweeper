@@ -9,7 +9,7 @@ import { setFlagSelected, setFlagUnSelected } from '../../../views/game/gameActi
 import styles from './timer.module.css';
 
 export default function Timer() {
-  const { startTime, currentTime, totalTime, flagSelected, play, failed, findMineCount, totalMines } = useSelector(
+  const { startTime, currentTime, totalTime, flagSelected, play, failed, success, findMineCount, totalMines } = useSelector(
     (state: any) => state.gameReducer
   );
   const dispatch: Dispatch<any> = useDispatch();
@@ -33,7 +33,7 @@ export default function Timer() {
     }
 
     const { minutes, seconds, remainingTime } = generateTimer(startTime, currentTime, totalTime);
-    if ((!play && failed) || (minutes <= 0 && seconds <= 0)) {
+    if ((!play && failed) || success || (minutes <= 0 && seconds <= 0)) {
       setMinutes(0);
       setSeconds(0);
     } else {
@@ -42,7 +42,7 @@ export default function Timer() {
       showToastrNotification(minutes, seconds, remainingTime);
     }
     
-  }, [startTime, currentTime, totalTime, halfTime, play, failed, dispatch]);
+  }, [startTime, currentTime, totalTime, halfTime, play, failed, success, dispatch]);
 
   const toggleFlatBtn = () => {
     flagSelected ? dispatch(setFlagUnSelected()) : dispatch(setFlagSelected());
@@ -56,9 +56,16 @@ export default function Timer() {
         {findMineCount} / {totalMines}
       </div>
 
+      <div className={styles.counter}>
+        { success && <img className={styles.flagIcoBtn2} alt='flag-btn' src={'./success.png'} /> }
+        { play && <img className={styles.flagIcoBtn2} alt='flag-btn' src={'./face.png'} /> }
+        { !play && failed && <img className={styles.flagIcoBtn2} alt='flag-btn' src={'./sad-face.png'} /> }
+
+      </div>
+
       <div>
         <button className={`${styles.flagBtn} ${flagSelected && styles.flagBtnSelected}`} onClick={toggleFlatBtn}>
-          <img className={styles.flagIcoBtn} alt='flag-btn' src={'./flag-icon2.png'} />
+          <img className={styles.flagIcoBtn} alt='flag-btn' src={'./flag-icon.png'} />
         </button>
       </div>
 
