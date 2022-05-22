@@ -44,6 +44,7 @@ function Game() {
       if (remainingTime <= 0 && startTime !== 0) {
         Notification.error('timeout, game over');
         dispatch(gameTimeout());
+        clearInterval(counterInterval);
       } else if (success || (!play && failed)) {
         clearInterval(counterInterval);
       }
