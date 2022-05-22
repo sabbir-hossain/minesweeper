@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import { Dispatch } from "redux";
 
 import * as Notification from '../../../components/notification';
@@ -13,7 +13,8 @@ import styles from './play.module.css';
 
 function Game() {
   const { isLoaded, play, failed, success, startTime, currentTime, totalTime }: IGameReducer = useSelector(
-    (state: any) => state.gameReducer as IGameReducer
+    (state: any) => state.gameReducer as IGameReducer,
+    shallowEqual
   );
   const dispatch: Dispatch<any> = useDispatch();
   const [data, setData] = useState([]);

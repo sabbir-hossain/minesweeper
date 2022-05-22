@@ -24,6 +24,3 @@ if (process.env.NODE_ENV === "development") {
 }
 
 export const store = createStore(rootReducer, composeEnhancers(composeWithMiddleware));
-
-export type AppDispatch = typeof store.dispatch;
-

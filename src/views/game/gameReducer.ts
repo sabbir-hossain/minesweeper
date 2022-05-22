@@ -12,7 +12,7 @@ import {
   MINE_SELECTED,
 } from './gameAction';
 import { IGameReducer } from './IGame';
-import { CustomKeyValue } from '../../commons/IShare';
+import { ICustomAction } from '../../commons/IShare';
 
 export const oneMinute = 60 * 1000;
 export const twoMinute = oneMinute * 2;
@@ -36,7 +36,7 @@ const initialState: IGameReducer = {
   flagSelected: false,
 };
 
-export const gameReducer = (state: IGameReducer = initialState, action: CustomKeyValue) => {
+export const gameReducer = (state: IGameReducer = initialState, action: ICustomAction) => {
   switch (action.type) {
     case LOADING_GAME: {
       return {
