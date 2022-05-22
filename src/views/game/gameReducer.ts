@@ -83,7 +83,7 @@ export const gameReducer = (state: IGameReducer = initialState, action: ICustomA
         ...state,
         startTime: Date.now(),
         currentTime: Date.now(),
-        totalTime: twoMinute,
+        totalTime: fiveMinutes,
         totalMines: action.payload?.totalMines || 0,
         play: true,
         success: false,
