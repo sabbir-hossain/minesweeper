@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
-import { resetGame } from '../../game/gameAction';
-import { setMineAction } from '../drawAction';
-import { localStorageKeyName } from '../../../service/get';
-import DrawBoxGrid from '../../../components/draw/draw-box-grid';
-import Layout from '../../../layout';
-import styles from './create.module.css';
-import { Dispatch } from 'redux';
+import { resetGame } from "../../game/gameAction";
+import { setMineAction } from "../drawAction";
+import { localStorageKeyName } from "../../../service/get";
+import DrawBoxGrid from "../../../components/draw/draw-box-grid";
+import Layout from "../../../layout";
+import styles from "./create.module.css";
+import { Dispatch } from "redux";
 
 const maxX = 20;
 const maxY = 48;
@@ -20,12 +20,14 @@ export default function Draw() {
 
   useEffect(() => {
     dispatch(resetGame());
-    const dt: number[][] = Array.from({ length: maxX }).map(() => Array.from({ length: maxY }).fill(0)) as number[][];
+    const dt: number[][] = Array.from({ length: maxX }).map(() =>
+      Array.from({ length: maxY }).fill(0)
+    ) as number[][];
     setData(dt);
   }, [dispatch]);
 
   const handleBoxSelect = (key: string) => {
-    const [a, b] = key.split('-').map((num) => parseInt(num, 10));
+    const [a, b] = key.split("-").map((num) => parseInt(num, 10));
     const dt = JSON.parse(JSON.stringify(data));
     let _totalMine = totalMine;
     if (dt[a][b] === -1) {
@@ -40,15 +42,13 @@ export default function Draw() {
     setData(dt);
     dispatch(setMineAction(_totalMine));
     setTotalMine(_totalMine);
-  }
+  };
 
   return (
     <Layout>
       <main className={styles.maincontents}>
         <div className={styles.gameDisplay}>
-          <DrawBoxGrid
-            data={data}
-            handleBoxSelect={handleBoxSelect} />
+          <DrawBoxGrid data={data} handleBoxSelect={handleBoxSelect} />
         </div>
       </main>
     </Layout>

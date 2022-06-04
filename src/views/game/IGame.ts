@@ -1,10 +1,8 @@
-
 export interface IGame {
   value: number;
   cls: string;
   display: string;
 }
-
 
 export interface IGameReducer {
   isLoaded: boolean;

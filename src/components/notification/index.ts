@@ -2,52 +2,51 @@ import {
   Store,
   NOTIFICATION_CONTAINER,
   NOTIFICATION_INSERTION,
-} from 'react-notifications-component';
+} from "react-notifications-component";
 
 const notificationConfig = {
   insert: "top" as NOTIFICATION_INSERTION,
-  container: 'top-right' as NOTIFICATION_CONTAINER,
+  container: "top-right" as NOTIFICATION_CONTAINER,
   animationIn: ["animate__animated", "animate__fadeIn"],
   animationOut: ["animate__animated", "animate__fadeOut"],
   dismiss: {
     duration: 1000,
-    onScreen: true
-  }
-}
+    onScreen: true,
+  },
+};
 
-export const success = (title: string, message='') => {
+export const success = (title: string, message = "") => {
   Store.addNotification({
     message,
-    title, 
+    title,
     type: "success",
-    ...notificationConfig
-  })
-}
+    ...notificationConfig,
+  });
+};
 
-export const error = (title: string, message='') => {
+export const error = (title: string, message = "") => {
   Store.addNotification({
     message,
-    title, 
+    title,
     type: "danger",
-    ...notificationConfig
-  })
-}
+    ...notificationConfig,
+  });
+};
 
-export const info = (title: string, message='') => {
+export const info = (title: string, message = "") => {
   Store.addNotification({
     message,
-    title, 
+    title,
     type: "info",
-    ...notificationConfig
-  })
-}
+    ...notificationConfig,
+  });
+};
 
-export const warning = (title: string, message='') => {
+export const warning = (title: string, message = "") => {
   Store.addNotification({
     message,
-    title, 
+    title,
     type: "warning",
-    ...notificationConfig
-  })
-}
-
+    ...notificationConfig,
+  });
+};

@@ -1,7 +1,7 @@
 # Cipher-Text
 
 
-[##https://minesweeper-f6d37.web.app/](https://minesweeper-f6d37.web.app/)
+[https://minesweeper-f6d37.web.app/](https://minesweeper-f6d37.web.app/)
 
 ## Run project 
 

@@ -2,7 +2,6 @@ export interface CustomKeyValue {
   [key: string]: any;
 }
 
-
 export interface ICustomAction {
   type: string;
   payload?: CustomKeyValue;

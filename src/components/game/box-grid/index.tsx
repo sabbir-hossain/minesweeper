@@ -1,16 +1,23 @@
-import { useState, useEffect, memo } from 'react';
+import React, { FC, useState, useEffect, memo } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Dispatch } from 'redux';
+import { Dispatch } from "redux";
 
-import * as Notification from '../../notification';
-import { showAdjacent, processData } from '../../../commons/helper';
-import { gameFailed, mineFlagSelected, gameSuccess } from '../../../views/game/gameAction';
-import { IGame, IGameReducer } from '../../../views/game/IGame';
-import Box from '../box';
-import styles from './box-grid.module.css';
+import * as Notification from "../../notification";
+import { showAdjacent, processData } from "../../../commons/helper";
+import {
+  gameFailed,
+  mineFlagSelected,
+  gameSuccess,
+} from "../../../views/game/gameAction";
+import { IGame, IGameReducer } from "../../../views/game/IGame";
+import Box from "../box";
+import styles from "./box-grid.module.css";
 
+interface BoxGridPropsTypes extends React.ComponentPropsWithoutRef<any> {
+  data: [];
+}
 
-const BoxGrid = ({ data = [] }) => {
+const BoxGrid: FC<BoxGridPropsTypes> = ({ data = [] }) => {
   const { play, flagSelected, findMineCount, totalMines } = useSelector(
     (state: any) => state.gameReducer as IGameReducer
   );
@@ -32,70 +39,65 @@ const BoxGrid = ({ data = [] }) => {
 
     let selectedMine = solveMineCount;
     const data = JSON.parse(JSON.stringify(puzzleData));
-    
-    const [a, b] = key.split('-').map((num) => parseInt(num, 10));
+
+    const [a, b] = key.split("-").map((num) => parseInt(num, 10));
     if (data[a][b].value === -1 && !flagSelected) {
-      dispatch( gameFailed() );
-      const { data: dt } = processData(data, 'failed');
+      dispatch(gameFailed());
+      const { data: dt } = processData(data, "failed");
       setPuzzleData(dt);
-    }
-    else if (data[a][b].value === -1 && flagSelected) {
-      if( data[a][b].display === 'show_flag' ) {
-        data[a][b].display = '';
+    } else if (data[a][b].value === -1 && flagSelected) {
+      if (data[a][b].display === "show_flag") {
+        data[a][b].display = "";
         selectedMine -= 1;
       } else {
-        data[a][b].display = 'show_flag';
+        data[a][b].display = "show_flag";
         selectedMine += 1;
 
-        if( selectedMine === totalMines) {
-          dispatch( gameSuccess() );
-          const { data: dt } = processData(data, 'success');
+        if (selectedMine === totalMines) {
+          dispatch(gameSuccess());
+          const { data: dt } = processData(data, "success");
           setPuzzleData(dt);
-          Notification.success('Congratulation, you have found all mine(s)');
+          Notification.success("Congratulation, you have found all mine(s)");
         }
-
       }
       setPuzzleData(data);
-    }
-    else if (flagSelected) {
-      data[a][b].display = data[a][b].display === 'show_flag' ? '' : 'show_flag';
+    } else if (flagSelected) {
+      data[a][b].display =
+        data[a][b].display === "show_flag" ? "" : "show_flag";
       setPuzzleData(data);
-    }
-    else {
+    } else {
       const dt: IGame[][] = showAdjacent(data, a, b);
       setPuzzleData([...dt]);
     }
-    
+
     setSolveMineCount(selectedMine);
-    dispatch( mineFlagSelected(selectedMine) );
-  }
+    dispatch(mineFlagSelected(selectedMine));
+  };
 
   return (
     <>
-      {
-        (puzzleData as IGame[][]).map((dtx: any, idx: number) => (
-          <div className={styles.gameRow} key={idx}>
-            {
-              (dtx as IGame[]).map((dt: IGame, idx2: number) => (
-                <Box
-                  key={`${idx}-${idx2}`}
-                  id={`${idx}-${idx2}`}
-                  value={dt.value}
-                  cls={
-                    (dt.display === '' || parseInt(dt.display, 10) === 0)
-                      ? (idx + idx2) % 2 === 0 ? `${dt.cls}-even` : dt.cls
-                      : dt.cls
-                  }
-                  display={dt.display}
-                  handleBox={handleBox}
-                />
-              ))
-            }
-          </div>
-        ))
-      }
+      {(puzzleData as IGame[][]).map((dtx: any, idx: number) => (
+        <div className={styles.gameRow} key={idx}>
+          {(dtx as IGame[]).map((dt: IGame, idx2: number) => (
+            <Box
+              key={`${idx}-${idx2}`}
+              id={`${idx}-${idx2}`}
+              value={dt.value}
+              cls={
+                dt.display === "" || parseInt(dt.display, 10) === 0
+                  ? (idx + idx2) % 2 === 0
+                    ? `${dt.cls}-even`
+                    : dt.cls
+                  : dt.cls
+              }
+              display={dt.display}
+              handleBox={handleBox}
+            />
+          ))}
+        </div>
+      ))}
     </>
-  )
-}
+  );
+};
 
 export default memo(BoxGrid);

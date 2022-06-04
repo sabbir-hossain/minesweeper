@@ -1,18 +1,33 @@
-import { useState, useEffect } from 'react';
+import { FC, useState, useEffect } from "react";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import { Dispatch } from "redux";
 
-import * as Notification from '../../../components/notification';
-import { gameLoadingAction, gameLoadingComplete, loadingGame, gameStarted, countdown, gameTimeout } from '../gameAction';
-import { processData, getRemainingTime } from '../../../commons/helper';
-import BoxGrid from '../../../components/game/box-grid';
-import { IGameReducer } from '../IGame';
+import * as Notification from "../../../components/notification";
+import {
+  gameLoadingAction,
+  gameLoadingComplete,
+  loadingGame,
+  gameStarted,
+  countdown,
+  gameTimeout,
+} from "../gameAction";
+import { processData, getRemainingTime } from "../../../commons/helper";
+import BoxGrid from "../../../components/game/box-grid";
+import { IGameReducer } from "../IGame";
 
-import Layout from '../../../layout';
-import styles from './play.module.css';
+import Layout from "../../../layout";
+import styles from "./play.module.css";
 
-function Game() {
-  const { isLoaded, play, failed, success, startTime, currentTime, totalTime }: IGameReducer = useSelector(
+const Game: FC = () => {
+  const {
+    isLoaded,
+    play,
+    failed,
+    success,
+    startTime,
+    currentTime,
+    totalTime,
+  }: IGameReducer = useSelector(
     (state: any) => state.gameReducer as IGameReducer,
     shallowEqual
   );
@@ -42,21 +57,20 @@ function Game() {
     const counterInterval = setInterval(() => {
       const remainingTime = getRemainingTime(startTime, currentTime, totalTime);
       if (remainingTime <= 0 && startTime !== 0) {
-        Notification.error('timeout, game over');
+        Notification.error("timeout, game over");
         dispatch(gameTimeout());
         clearInterval(counterInterval);
       } else if (success || (!play && failed)) {
         clearInterval(counterInterval);
-      }
-      else {
+      } else {
         dispatch(countdown());
       }
-    }, 1000)
+    }, 1000);
 
     return () => {
-      clearInterval(counterInterval)
-    }
-  }, [dispatch, failed, play, success, startTime, currentTime, totalTime])
+      clearInterval(counterInterval);
+    };
+  }, [dispatch, failed, play, success, startTime, currentTime, totalTime]);
 
   return (
     <Layout>
@@ -67,6 +81,6 @@ function Game() {
       </main>
     </Layout>
   );
-}
+};
 
 export default Game;

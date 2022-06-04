@@ -1,4 +1,4 @@
-import { 
+import {
   RESET_GAME,
   LOADING_GAME,
   LOADING_GAME_COMPLETE,
@@ -10,9 +10,9 @@ import {
   FLAG_SELECTED,
   FLAG_UNSELECTED,
   MINE_SELECTED,
-} from './gameAction';
-import { IGameReducer } from './IGame';
-import { ICustomAction } from '../../commons/IShare';
+} from "./gameAction";
+import { IGameReducer } from "./IGame";
+import { ICustomAction } from "../../commons/IShare";
 
 export const oneMinute = 60 * 1000;
 export const twoMinute = oneMinute * 2;
@@ -32,18 +32,21 @@ const initialState: IGameReducer = {
   play: false,
   success: false,
   failed: false,
-  failedReason: '',
+  failedReason: "",
   flagSelected: false,
 };
 
-export const gameReducer = (state: IGameReducer = initialState, action: ICustomAction) => {
+export const gameReducer = (
+  state: IGameReducer = initialState,
+  action: ICustomAction
+) => {
   switch (action.type) {
     case LOADING_GAME: {
       return {
         ...state,
         ...initialState,
         isLoaded: false,
-      }
+      };
     }
     case RESET_GAME: {
       return {
@@ -51,32 +54,32 @@ export const gameReducer = (state: IGameReducer = initialState, action: ICustomA
         ...initialState,
         isLoaded: false,
         playSelected: false,
-      }
+      };
     }
     case LOADING_GAME_COMPLETE: {
       return {
         ...state,
         isLoaded: true,
         playSelected: true,
-      }
+      };
     }
     case FLAG_SELECTED: {
       return {
         ...state,
-        flagSelected: true
-      }
+        flagSelected: true,
+      };
     }
     case FLAG_UNSELECTED: {
       return {
         ...state,
-        flagSelected: false
-      }
+        flagSelected: false,
+      };
     }
     case MINE_SELECTED: {
       return {
         ...state,
-        findMineCount: action.payload?.findMineCount || 0
-      }
+        findMineCount: action.payload?.findMineCount || 0,
+      };
     }
     case GAME_STARTED: {
       return {
@@ -103,16 +106,16 @@ export const gameReducer = (state: IGameReducer = initialState, action: ICustomA
         play: false,
         success: true,
         failed: false,
-        failedReason: '',
-      }
+        failedReason: "",
+      };
     }
     case GAME_TIMEOUT: {
       return {
         ...state,
         play: false,
         failed: true,
-        failedReason: 'timeout',
-      }
+        failedReason: "timeout",
+      };
     }
     case GAME_FAILED: {
       return {
@@ -120,8 +123,8 @@ export const gameReducer = (state: IGameReducer = initialState, action: ICustomA
         play: false,
         success: false,
         failed: true,
-        failedReason: 'failed',
-      }
+        failedReason: "failed",
+      };
     }
     default:
       return state;
