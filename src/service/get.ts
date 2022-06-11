@@ -5,7 +5,7 @@ export const localStorageKeyName = "savedMineSweeperGame";
 export const getPuzzles = async (): Promise<IPuzzleData[][]> => {
   const data = window.localStorage.getItem(localStorageKeyName);
 
-  let results: number[][][] = [];
+  let results: IPuzzleData[][][] = [];
   if (data && data !== "") {
     results = [JSON.parse(data)];
   } else {
@@ -17,6 +17,6 @@ export const getPuzzles = async (): Promise<IPuzzleData[][]> => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(results[Math.round(Math.random() * (results.length - 1))]);
-    }, 1500);
+    }, 3500);
   });
 };

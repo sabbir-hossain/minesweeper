@@ -1,10 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { store } from "./store";
 import { Provider } from "react-redux";
 import "react-notifications-component/dist/theme.css";
 import { ReactNotifications } from "react-notifications-component";
-import { LoadingBar } from "react-redux-loading-bar";
+
+import { store } from "./store";
 
 import "./index.css";
 import App from "./App";
@@ -18,9 +18,6 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <ReactNotifications />
-      <LoadingBar
-        style={{ backgroundColor: "#ffd700", height: "5px", zIndex: 100 }}
-      />
       <App />
     </Provider>
   </React.StrictMode>

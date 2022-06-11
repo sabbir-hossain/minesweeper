@@ -1,6 +1,7 @@
 import { FC, useState, useEffect } from "react";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import { Dispatch } from "redux";
+import { showLoading, hideLoading } from "react-redux-loading-bar";
 
 import * as Notification from "../../../components/notification";
 import {
@@ -39,6 +40,7 @@ const Game: FC = () => {
   useEffect(() => {
     function fetchGame() {
       dispatch(gameLoadingAction());
+      dispatch(showLoading());
       loadingGame()
         .then((game: IPuzzleData[][]) => {
           dispatch(gameLoadingComplete());
@@ -49,6 +51,9 @@ const Game: FC = () => {
         .catch((error) => {
           console.error(error);
           setData([]);
+        })
+        .finally(() => {
+          dispatch(hideLoading());
         });
     }
 

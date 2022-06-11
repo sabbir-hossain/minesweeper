@@ -9,7 +9,7 @@ import { IReducer } from "../../commons/IShare";
 import styles from "./header.module.css";
 
 interface PropsTypes extends React.ComponentPropsWithoutRef<any> {
-  active: string;
+  active?: string;
 }
 
 const Header: FC<PropsTypes> = ({ active = "" }: PropsTypes) => {
