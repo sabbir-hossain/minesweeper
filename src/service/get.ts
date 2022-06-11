@@ -1,6 +1,8 @@
+import { IPuzzleData } from "../commons/IShare";
+
 export const localStorageKeyName = "savedMineSweeperGame";
 
-export const getPuzzles = async () => {
+export const getPuzzles = async (): Promise<IPuzzleData[][]> => {
   const data = window.localStorage.getItem(localStorageKeyName);
 
   let results: number[][][] = [];

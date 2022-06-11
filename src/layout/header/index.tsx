@@ -1,4 +1,4 @@
-import { memo } from "react";
+import React, { FC, memo } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -6,7 +6,11 @@ import Timer from "../../components/game/timer";
 import MineCounter from "../../components/draw/counter";
 import styles from "./header.module.css";
 
-const Header = ({ active = "" }) => {
+interface PropsTypes extends React.ComponentPropsWithoutRef<any> {
+  active: string;
+}
+
+const Header: FC<PropsTypes> = ({ active = "" }: PropsTypes) => {
   const { playSelected } = useSelector((state: any) => state.gameReducer);
 
   return (

@@ -14,6 +14,7 @@ import {
 import { processData, getRemainingTime } from "../../../commons/helper";
 import BoxGrid from "../../../components/game/box-grid";
 import { IGameReducer } from "../IGame";
+import { IPuzzleData, IProcessData } from "../../../commons/IShare";
 
 import Layout from "../../../layout";
 import styles from "./play.module.css";
@@ -32,15 +33,15 @@ const Game: FC = () => {
     shallowEqual
   );
   const dispatch: Dispatch<any> = useDispatch();
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<IPuzzleData[][]>([]);
 
   useEffect(() => {
     function fetchGame() {
       dispatch(gameLoadingAction());
       loadingGame()
-        .then((game) => {
+        .then((game: IPuzzleData[][]) => {
           dispatch(gameLoadingComplete());
-          const { mineCounter, data } = processData(game);
+          const { mineCounter, data }: IProcessData = processData(game);
           setData(data);
           dispatch(gameStarted(mineCounter));
         })
@@ -55,7 +56,11 @@ const Game: FC = () => {
 
   useEffect(() => {
     const counterInterval = setInterval(() => {
-      const remainingTime = getRemainingTime(startTime, currentTime, totalTime);
+      const remainingTime: number = getRemainingTime(
+        startTime,
+        currentTime,
+        totalTime
+      );
       if (remainingTime <= 0 && startTime !== 0) {
         Notification.error("timeout, game over");
         dispatch(gameTimeout());

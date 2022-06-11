@@ -12,7 +12,7 @@ export type CustomDispatchType = (arg: ICustomAction) => ICustomAction;
 export interface IPuzzle {
   value: number;
   cls: string;
-  display: string | number;
+  display: string;
 }
 
 export type IPuzzleData = IPuzzle | number;

@@ -98,7 +98,7 @@ export function showAdjacent(_data: IPuzzleData[][], a: number, b: number) {
       displayValue.toString() !== ""
         ? `range-${(_data[a][b] as IPuzzle).value}`
         : "range-0",
-    display: displayValue,
+    display: displayValue.toString(),
   };
 
   // top left
@@ -121,7 +121,7 @@ export function showAdjacent(_data: IPuzzleData[][], a: number, b: number) {
       (_data[a][b - 1] as IPuzzle).value
     }`;
     (_data[a][b - 1] as IPuzzle).display = (_data[a][b - 1] as IPuzzle).value
-      ? (_data[a][b - 1] as IPuzzle).value
+      ? (_data[a][b - 1] as IPuzzle).value.toString()
       : "-";
   }
 
@@ -136,7 +136,7 @@ export function showAdjacent(_data: IPuzzleData[][], a: number, b: number) {
     }`;
     (_data[a + 1][b - 1] as IPuzzle).display = (_data[a + 1][b - 1] as IPuzzle)
       .value
-      ? (_data[a + 1][b - 1] as IPuzzle).value
+      ? (_data[a + 1][b - 1] as IPuzzle).value.toString()
       : "-";
   }
 
@@ -150,7 +150,7 @@ export function showAdjacent(_data: IPuzzleData[][], a: number, b: number) {
       (_data[a - 1][b] as IPuzzle).value
     }`;
     (_data[a - 1][b] as IPuzzle).display = (_data[a - 1][b] as IPuzzle).value
-      ? (_data[a - 1][b] as IPuzzle).value
+      ? (_data[a - 1][b] as IPuzzle).value.toString()
       : "-";
   }
 
@@ -160,7 +160,7 @@ export function showAdjacent(_data: IPuzzleData[][], a: number, b: number) {
       (_data[a][b + 1] as IPuzzle).value
     }`;
     (_data[a][b + 1] as IPuzzle).display = (_data[a][b + 1] as IPuzzle).value
-      ? (_data[a][b + 1] as IPuzzle).value
+      ? (_data[a][b + 1] as IPuzzle).value.toString()
       : "-";
   }
 
@@ -175,7 +175,7 @@ export function showAdjacent(_data: IPuzzleData[][], a: number, b: number) {
     }`;
     (_data[a - 1][b + 1] as IPuzzle).display = (_data[a - 1][b + 1] as IPuzzle)
       .value
-      ? (_data[a - 1][b + 1] as IPuzzle).value
+      ? (_data[a - 1][b + 1] as IPuzzle).value.toString()
       : "-";
   }
 
@@ -190,7 +190,7 @@ export function showAdjacent(_data: IPuzzleData[][], a: number, b: number) {
     }`;
     (_data[a + 1][b] as IPuzzle).display =
       (_data[a + 1][b] as IPuzzle).value !== 0
-        ? (_data[a + 1][b] as IPuzzle).value
+        ? (_data[a + 1][b] as IPuzzle).value.toString()
         : "-";
   }
 
@@ -205,7 +205,7 @@ export function showAdjacent(_data: IPuzzleData[][], a: number, b: number) {
     }`;
     (_data[a + 1][b + 1] as IPuzzle).display = (_data[a + 1][b + 1] as IPuzzle)
       .value
-      ? (_data[a + 1][b + 1] as IPuzzle).value
+      ? (_data[a + 1][b + 1] as IPuzzle).value.toString()
       : "-";
   }
 
@@ -262,7 +262,7 @@ export function getRemainingTime(
   startTime: number,
   currentTime: number,
   totalTime: number
-) {
+): number {
   const timeDiff = currentTime - startTime;
   return Math.floor((totalTime - timeDiff) / 1000);
 }

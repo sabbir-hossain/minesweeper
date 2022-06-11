@@ -1,5 +1,5 @@
 import { getPuzzles } from "../../service/get";
-import { CustomDispatchType } from "../../commons/IShare";
+import { CustomDispatchType, IPuzzleData } from "../../commons/IShare";
 
 export const RESET_GAME = "RESET_GAME";
 export const LOADING_GAME = "LOADING_GAME";
@@ -32,7 +32,7 @@ export const gameStarted =
     dispatch({ type: GAME_STARTED, payload: { totalMines } });
   };
 
-export const loadingGame = () => getPuzzles();
+export const loadingGame = (): Promise<IPuzzleData[][]> => getPuzzles();
 
 export const setFlagSelected = () => (dispatch: CustomDispatchType) => {
   dispatch({ type: FLAG_SELECTED });

@@ -9,12 +9,13 @@ import {
   mineFlagSelected,
   gameSuccess,
 } from "../../../views/game/gameAction";
-import { IGame, IGameReducer } from "../../../views/game/IGame";
+import { IGameReducer } from "../../../views/game/IGame";
+import { IPuzzle, IPuzzleData } from "../../../commons/IShare";
 import Box from "../box";
 import styles from "./box-grid.module.css";
 
 interface BoxGridPropsTypes extends React.ComponentPropsWithoutRef<any> {
-  data: IGame[][];
+  data: IPuzzleData[][];
 }
 
 const BoxGrid: FC<BoxGridPropsTypes> = ({ data = [] }: BoxGridPropsTypes) => {
@@ -26,7 +27,7 @@ const BoxGrid: FC<BoxGridPropsTypes> = ({ data = [] }: BoxGridPropsTypes) => {
 
   const dispatch: Dispatch<any> = useDispatch();
 
-  const [puzzleData, setPuzzleData] = useState<IGame[][]>([]);
+  const [puzzleData, setPuzzleData] = useState<IPuzzleData[][]>([]);
 
   useEffect(() => {
     setPuzzleData(data);
@@ -66,7 +67,7 @@ const BoxGrid: FC<BoxGridPropsTypes> = ({ data = [] }: BoxGridPropsTypes) => {
         data[a][b].display === "show_flag" ? "" : "show_flag";
       setPuzzleData(data);
     } else {
-      const dt: IGame[][] = showAdjacent(data, a, b);
+      const dt: IPuzzleData[][] = showAdjacent(data, a, b);
       setPuzzleData([...dt]);
     }
 
@@ -76,9 +77,9 @@ const BoxGrid: FC<BoxGridPropsTypes> = ({ data = [] }: BoxGridPropsTypes) => {
 
   return (
     <>
-      {(puzzleData as IGame[][]).map((dtx: any, idx: number) => (
+      {(puzzleData as IPuzzleData[][]).map((dtx: any, idx: number) => (
         <div className={styles.gameRow} key={idx}>
-          {(dtx as IGame[]).map((dt: IGame, idx2: number) => (
+          {(dtx as IPuzzle[]).map((dt: IPuzzle, idx2: number) => (
             <Box
               key={`${idx}-${idx2}`}
               id={`${idx}-${idx2}`}
