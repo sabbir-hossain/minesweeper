@@ -2,8 +2,10 @@ import React, { FC, memo } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
+import { IGameReducer } from "../../views/game/IGame";
 import Timer from "../../components/game/timer";
 import MineCounter from "../../components/draw/counter";
+import { IReducer } from "../../commons/IShare";
 import styles from "./header.module.css";
 
 interface PropsTypes extends React.ComponentPropsWithoutRef<any> {
@@ -11,7 +13,9 @@ interface PropsTypes extends React.ComponentPropsWithoutRef<any> {
 }
 
 const Header: FC<PropsTypes> = ({ active = "" }: PropsTypes) => {
-  const { playSelected } = useSelector((state: any) => state.gameReducer);
+  const { playSelected }: IGameReducer = useSelector(
+    (state: IReducer): IGameReducer => state.gameReducer
+  );
 
   return (
     <header className={styles.headerContents}>

@@ -8,6 +8,8 @@ import {
   setFlagSelected,
   setFlagUnSelected,
 } from "../../../views/game/gameAction";
+import { IGameReducer } from "../../../views/game/IGame";
+import { IReducer } from "../../../commons/IShare";
 
 import styles from "./timer.module.css";
 
@@ -22,7 +24,9 @@ const Timer: FC = () => {
     success,
     findMineCount,
     totalMines,
-  } = useSelector((state: any) => state.gameReducer);
+  }: IGameReducer = useSelector(
+    (state: IReducer): IGameReducer => state.gameReducer
+  );
   const dispatch: Dispatch<any> = useDispatch();
 
   const [_minutes, setMinutes] = useState(0);

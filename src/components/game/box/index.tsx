@@ -1,6 +1,8 @@
 import { ComponentPropsWithoutRef, FC } from "react";
 import { useSelector } from "react-redux";
 
+import { IReducer } from "../../../commons/IShare";
+import { IGameReducer } from "../../../views/game/IGame";
 import styles from "./box.module.css";
 
 export interface Props extends ComponentPropsWithoutRef<any> {
@@ -38,7 +40,9 @@ const others: FC<Props> = ({ id, cls, display, handleBox }: Props) => (
 );
 
 const Box: FC<Props> = ({ id, cls, display, handleBox }: Props) => {
-  const { play } = useSelector((state: any) => state.gameReducer);
+  const { play }: IGameReducer = useSelector(
+    (state: IReducer): IGameReducer => state.gameReducer
+  );
 
   return display === "show_mine"
     ? showMine(play)

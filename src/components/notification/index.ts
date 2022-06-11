@@ -15,38 +15,38 @@ const notificationConfig = {
   },
 };
 
-export const success = (title: string, message = "") => {
+export const success = (title: string, message = ""): void => {
   Store.addNotification({
+    ...notificationConfig,
     message,
     title,
     type: "success",
-    ...notificationConfig,
   });
 };
 
-export const error = (title: string, message = "") => {
+export const error = (title: string, message = ""): void => {
   Store.addNotification({
+    ...notificationConfig,
     message,
     title,
     type: "danger",
-    ...notificationConfig,
   });
 };
 
-export const info = (title: string, message = "") => {
+export const info = (title: string, message = ""): void => {
   Store.addNotification({
+    ...notificationConfig,
     message,
     title,
     type: "info",
-    ...notificationConfig,
   });
 };
 
-export const warning = (title: string, message = "") => {
+export const warning = (title: string, message = ""): void => {
   Store.addNotification({
+    ...notificationConfig,
     message,
     title,
     type: "warning",
-    ...notificationConfig,
   });
 };

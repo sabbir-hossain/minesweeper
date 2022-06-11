@@ -1,3 +1,6 @@
+import { IDrawReducer } from "../views/draw/IDraw";
+import { IGameReducer } from "../views/game/IGame";
+
 export interface CustomKeyValue {
   [key: string]: any;
 }
@@ -20,4 +23,9 @@ export type IPuzzleData = IPuzzle | number;
 export interface IProcessData {
   data: IPuzzleData[][];
   mineCounter: number;
+}
+
+export interface IReducer {
+  gameReducer: IGameReducer;
+  drawReducer: IDrawReducer;
 }

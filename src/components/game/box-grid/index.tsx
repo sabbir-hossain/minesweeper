@@ -9,6 +9,7 @@ import {
   mineFlagSelected,
   gameSuccess,
 } from "../../../views/game/gameAction";
+import { IReducer } from "../../../commons/IShare";
 import { IGameReducer } from "../../../views/game/IGame";
 import { IPuzzle, IPuzzleData } from "../../../commons/IShare";
 import Box from "../box";
@@ -19,9 +20,10 @@ interface BoxGridPropsTypes extends React.ComponentPropsWithoutRef<any> {
 }
 
 const BoxGrid: FC<BoxGridPropsTypes> = ({ data = [] }: BoxGridPropsTypes) => {
-  const { play, flagSelected, findMineCount, totalMines } = useSelector(
-    (state: any) => state.gameReducer as IGameReducer
-  );
+  const { play, flagSelected, findMineCount, totalMines }: IGameReducer =
+    useSelector(
+      (state: IReducer): IGameReducer => state.gameReducer as IGameReducer
+    );
 
   const [solveMineCount, setSolveMineCount] = useState(findMineCount);
 

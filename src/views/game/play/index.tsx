@@ -15,6 +15,7 @@ import { processData, getRemainingTime } from "../../../commons/helper";
 import BoxGrid from "../../../components/game/box-grid";
 import { IGameReducer } from "../IGame";
 import { IPuzzleData, IProcessData } from "../../../commons/IShare";
+import { IReducer } from "../../../commons/IShare";
 
 import Layout from "../../../layout";
 import styles from "./play.module.css";
@@ -29,7 +30,7 @@ const Game: FC = () => {
     currentTime,
     totalTime,
   }: IGameReducer = useSelector(
-    (state: any) => state.gameReducer as IGameReducer,
+    (state: IReducer): IGameReducer => state.gameReducer as IGameReducer,
     shallowEqual
   );
   const dispatch: Dispatch<any> = useDispatch();
