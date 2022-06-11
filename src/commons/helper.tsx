@@ -1,6 +1,10 @@
 import { IPuzzleData, IPuzzle, IProcessData } from "./IShare";
 
-export function findAdjacent(_data: IPuzzleData[][], a: number, b: number) {
+export function findAdjacent(
+  _data: IPuzzleData[][],
+  a: number,
+  b: number
+): IPuzzleData[][] {
   let count = 0;
 
   // top left
@@ -86,7 +90,11 @@ export function findAdjacent(_data: IPuzzleData[][], a: number, b: number) {
   return _data;
 }
 
-export function showAdjacent(_data: IPuzzleData[][], a: number, b: number) {
+export function showAdjacent(
+  _data: IPuzzleData[][],
+  a: number,
+  b: number
+): IPuzzleData[][] {
   if (_data[a][b] === -1 || (_data[a][b] as IPuzzle).value === -1) {
     return _data;
   }
@@ -246,11 +254,17 @@ export function processData(
   return { mineCounter, data: _data };
 }
 
+export interface IGenerateTimer {
+  minutes: number;
+  seconds: number;
+  remainingTime: number;
+}
+
 export function generateTimer(
   startTime: number,
   currentTime: number,
   totalTime: number
-) {
+): IGenerateTimer {
   const timeDiff = currentTime - startTime;
   const remainingTime = (totalTime - timeDiff) / 1000;
   const minutes = Math.floor(remainingTime / 60);

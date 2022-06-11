@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Dispatch } from "redux";
 
 import * as Notification from "../../notification";
-import { generateTimer } from "../../../commons/helper";
+import { generateTimer, IGenerateTimer } from "../../../commons/helper";
 import {
   setFlagSelected,
   setFlagUnSelected,
@@ -46,7 +46,7 @@ const Timer: FC = () => {
       }
     };
 
-    const { minutes, seconds, remainingTime } = generateTimer(
+    const { minutes, seconds, remainingTime }: IGenerateTimer = generateTimer(
       startTime,
       currentTime,
       totalTime
