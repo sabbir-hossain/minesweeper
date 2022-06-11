@@ -1,19 +1,22 @@
-export function findAdjacent(_data: any[], a: number, b: number) {
+import { IPuzzleData, IPuzzle, IProcessData } from "./IShare";
+
+export function findAdjacent(_data: IPuzzleData[][], a: number, b: number) {
   let count = 0;
 
   // top left
   if (
     _data[a - 1] &&
     _data[a - 1][b - 1] &&
-    (_data[a - 1][b - 1] === -1 || _data[a - 1][b - 1].value === -1)
+    (_data[a - 1][b - 1] === -1 ||
+      (_data[a - 1][b - 1] as IPuzzle).value === -1)
   ) {
-    count += 1;
+    count++;
   }
 
   // top middle
   if (
     _data[a][b - 1] &&
-    (_data[a][b - 1] === -1 || _data[a][b - 1].value === -1)
+    (_data[a][b - 1] === -1 || (_data[a][b - 1] as IPuzzle).value === -1)
   ) {
     count++;
   }
@@ -22,7 +25,8 @@ export function findAdjacent(_data: any[], a: number, b: number) {
   if (
     _data[a + 1] &&
     _data[a + 1][b - 1] &&
-    (_data[a + 1][b - 1] === -1 || _data[a + 1][b - 1].value === -1)
+    (_data[a + 1][b - 1] === -1 ||
+      (_data[a + 1][b - 1] as IPuzzle).value === -1)
   ) {
     count++;
   }
@@ -31,7 +35,7 @@ export function findAdjacent(_data: any[], a: number, b: number) {
   if (
     _data[a - 1] &&
     _data[a - 1][b] &&
-    (_data[a - 1][b] === -1 || _data[a - 1][b].value === -1)
+    (_data[a - 1][b] === -1 || (_data[a - 1][b] as IPuzzle).value === -1)
   ) {
     count++;
   }
@@ -39,7 +43,7 @@ export function findAdjacent(_data: any[], a: number, b: number) {
   // middle right
   if (
     _data[a][b + 1] &&
-    (_data[a][b + 1] === -1 || _data[a][b + 1].value === -1)
+    (_data[a][b + 1] === -1 || (_data[a][b + 1] as IPuzzle).value === -1)
   ) {
     count++;
   }
@@ -48,7 +52,8 @@ export function findAdjacent(_data: any[], a: number, b: number) {
   if (
     _data[a - 1] &&
     _data[a - 1][b + 1] &&
-    (_data[a - 1][b + 1] === -1 || _data[a - 1][b + 1].value === -1)
+    (_data[a - 1][b + 1] === -1 ||
+      (_data[a - 1][b + 1] as IPuzzle).value === -1)
   ) {
     count++;
   }
@@ -57,7 +62,7 @@ export function findAdjacent(_data: any[], a: number, b: number) {
   if (
     _data[a + 1] &&
     _data[a + 1][b] &&
-    (_data[a + 1][b] === -1 || _data[a + 1][b].value === -1)
+    (_data[a + 1][b] === -1 || (_data[a + 1][b] as IPuzzle).value === -1)
   ) {
     count++;
   }
@@ -66,7 +71,8 @@ export function findAdjacent(_data: any[], a: number, b: number) {
   if (
     _data[a + 1] &&
     _data[a + 1][b + 1] &&
-    (_data[a + 1][b + 1] === -1 || _data[a + 1][b + 1].value === -1)
+    (_data[a + 1][b + 1] === -1 ||
+      (_data[a + 1][b + 1] as IPuzzle).value === -1)
   ) {
     count++;
   }
@@ -80,88 +86,140 @@ export function findAdjacent(_data: any[], a: number, b: number) {
   return _data;
 }
 
-export function showAdjacent(_data: any[], a: number, b: number) {
-  if (_data[a][b] === -1 || _data[a][b].value === -1) {
+export function showAdjacent(_data: IPuzzleData[][], a: number, b: number) {
+  if (_data[a][b] === -1 || (_data[a][b] as IPuzzle).value === -1) {
     return _data;
   }
-  const displayValue = _data[a][b].value !== 0 ? _data[a][b].value : "-";
+  const displayValue =
+    (_data[a][b] as IPuzzle).value !== 0 ? (_data[a][b] as IPuzzle).value : "-";
   _data[a][b] = {
-    value: _data[a][b].value,
-    cls: displayValue !== "" ? `range-${_data[a][b].value}` : "range-0",
+    value: (_data[a][b] as IPuzzle).value,
+    cls:
+      displayValue.toString() !== ""
+        ? `range-${(_data[a][b] as IPuzzle).value}`
+        : "range-0",
     display: displayValue,
   };
 
   // top left
-  if (_data[a - 1] && _data[a - 1][b - 1] && _data[a - 1][b - 1].value !== -1) {
-    _data[a - 1][b].cls = `range-${_data[a - 1][b].value}`;
-    _data[a - 1][b].display = _data[a - 1][b].value
-      ? _data[a - 1][b].value
+  if (
+    _data[a - 1] &&
+    _data[a - 1][b - 1] &&
+    (_data[a - 1][b - 1] as IPuzzle).value !== -1
+  ) {
+    (_data[a - 1][b] as IPuzzle).cls = `range-${
+      (_data[a - 1][b] as IPuzzle).value
+    }`;
+    (_data[a - 1][b] as IPuzzle).display = (_data[a - 1][b] as IPuzzle).value
+      ? (_data[a - 1][b] as IPuzzle).value.toString()
       : "-";
   }
 
   // top middle
-  if (_data[a][b - 1] && _data[a][b - 1].value !== -1) {
-    _data[a][b - 1].cls = `range-${_data[a][b - 1].value}`;
-    _data[a][b - 1].display = _data[a][b - 1].value
-      ? _data[a][b - 1].value
+  if (_data[a][b - 1] && (_data[a][b - 1] as IPuzzle).value !== -1) {
+    (_data[a][b - 1] as IPuzzle).cls = `range-${
+      (_data[a][b - 1] as IPuzzle).value
+    }`;
+    (_data[a][b - 1] as IPuzzle).display = (_data[a][b - 1] as IPuzzle).value
+      ? (_data[a][b - 1] as IPuzzle).value
       : "-";
   }
 
   // top right
-  if (_data[a + 1] && _data[a + 1][b - 1] && _data[a + 1][b - 1].value !== -1) {
-    _data[a + 1][b - 1].cls = `range-${_data[a + 1][b - 1].value}`;
-    _data[a + 1][b - 1].display = _data[a + 1][b - 1].value
-      ? _data[a + 1][b - 1].value
+  if (
+    _data[a + 1] &&
+    _data[a + 1][b - 1] &&
+    (_data[a + 1][b - 1] as IPuzzle).value !== -1
+  ) {
+    (_data[a + 1][b - 1] as IPuzzle).cls = `range-${
+      (_data[a + 1][b - 1] as IPuzzle).value
+    }`;
+    (_data[a + 1][b - 1] as IPuzzle).display = (_data[a + 1][b - 1] as IPuzzle)
+      .value
+      ? (_data[a + 1][b - 1] as IPuzzle).value
       : "-";
   }
 
   // middle left
-  if (_data[a - 1] && _data[a - 1][b] && _data[a - 1][b].value !== -1) {
-    _data[a - 1][b].cls = `range-${_data[a - 1][b].value}`;
-    _data[a - 1][b].display = _data[a - 1][b].value
-      ? _data[a - 1][b].value
+  if (
+    _data[a - 1] &&
+    _data[a - 1][b] &&
+    (_data[a - 1][b] as IPuzzle).value !== -1
+  ) {
+    (_data[a - 1][b] as IPuzzle).cls = `range-${
+      (_data[a - 1][b] as IPuzzle).value
+    }`;
+    (_data[a - 1][b] as IPuzzle).display = (_data[a - 1][b] as IPuzzle).value
+      ? (_data[a - 1][b] as IPuzzle).value
       : "-";
   }
 
   // middle right
-  if (_data[a][b + 1] && _data[a][b + 1].value !== -1) {
-    _data[a][b + 1].cls = `range-${_data[a][b + 1].value}`;
-    _data[a][b + 1].display = _data[a][b + 1].value
-      ? _data[a][b + 1].value
+  if (_data[a][b + 1] && (_data[a][b + 1] as IPuzzle).value !== -1) {
+    (_data[a][b + 1] as IPuzzle).cls = `range-${
+      (_data[a][b + 1] as IPuzzle).value
+    }`;
+    (_data[a][b + 1] as IPuzzle).display = (_data[a][b + 1] as IPuzzle).value
+      ? (_data[a][b + 1] as IPuzzle).value
       : "-";
   }
 
   // bottom left
-  if (_data[a - 1] && _data[a - 1][b + 1] && _data[a - 1][b + 1].value !== -1) {
-    _data[a - 1][b + 1].cls = `range-${_data[a - 1][b + 1].value}`;
-    _data[a - 1][b + 1].display = _data[a - 1][b + 1].value
-      ? _data[a - 1][b + 1].value
+  if (
+    _data[a - 1] &&
+    _data[a - 1][b + 1] &&
+    (_data[a - 1][b + 1] as IPuzzle).value !== -1
+  ) {
+    (_data[a - 1][b + 1] as IPuzzle).cls = `range-${
+      (_data[a - 1][b + 1] as IPuzzle).value
+    }`;
+    (_data[a - 1][b + 1] as IPuzzle).display = (_data[a - 1][b + 1] as IPuzzle)
+      .value
+      ? (_data[a - 1][b + 1] as IPuzzle).value
       : "-";
   }
 
   // bottom middle
-  if (_data[a + 1] && _data[a + 1][b] && _data[a + 1][b].value !== -1) {
-    _data[a + 1][b].cls = `range-${_data[a + 1][b].value}`;
-    _data[a + 1][b].display =
-      _data[a + 1][b].value !== 0 ? _data[a + 1][b].value : "-";
+  if (
+    _data[a + 1] &&
+    _data[a + 1][b] &&
+    (_data[a + 1][b] as IPuzzle).value !== -1
+  ) {
+    (_data[a + 1][b] as IPuzzle).cls = `range-${
+      (_data[a + 1][b] as IPuzzle).value
+    }`;
+    (_data[a + 1][b] as IPuzzle).display =
+      (_data[a + 1][b] as IPuzzle).value !== 0
+        ? (_data[a + 1][b] as IPuzzle).value
+        : "-";
   }
 
   // bottom right
-  if (_data[a + 1] && _data[a + 1][b + 1] && _data[a + 1][b + 1].value !== -1) {
-    _data[a + 1][b + 1].cls = `range-${_data[a + 1][b + 1].value}`;
-    _data[a + 1][b + 1].display = _data[a + 1][b + 1].value
-      ? _data[a + 1][b + 1].value
+  if (
+    _data[a + 1] &&
+    _data[a + 1][b + 1] &&
+    (_data[a + 1][b + 1] as IPuzzle).value !== -1
+  ) {
+    (_data[a + 1][b + 1] as IPuzzle).cls = `range-${
+      (_data[a + 1][b + 1] as IPuzzle).value
+    }`;
+    (_data[a + 1][b + 1] as IPuzzle).display = (_data[a + 1][b + 1] as IPuzzle)
+      .value
+      ? (_data[a + 1][b + 1] as IPuzzle).value
       : "-";
   }
 
   return _data;
 }
 
-export function processData(_data: any, status: string = "") {
+export function processData(
+  _data: IPuzzleData[][],
+  status: string = ""
+): IProcessData {
   let mineCounter = 0;
   for (let i = 0; i < _data.length; i++) {
     for (let j = 0; j < _data[i].length; j++) {
-      if (_data[i][j] === -1 || _data[i][j].value === -1) {
+      if (_data[i][j] === -1 || (_data[i][j] as IPuzzle).value === -1) {
         mineCounter++;
         _data[i][j] = {
           value: -1,

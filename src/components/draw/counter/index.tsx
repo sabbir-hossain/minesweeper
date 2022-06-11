@@ -5,7 +5,7 @@ import styles from "./counter.module.css";
 export default function MineCounter() {
   const { totalMines } = useSelector((state: any) => state.drawReducer);
 
-  const setNumber = (num: number) => (num < 10 ? `0${num}` : `${num}`);
+  const setNumber = (num: number): string => (num < 10 ? `0${num}` : `${num}`);
 
   return (
     <>

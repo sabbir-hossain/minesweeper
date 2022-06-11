@@ -1,3 +1,5 @@
+import { FC } from "react";
+
 import DrawBox from "../draw-box";
 import styles from "./draw-box-grid.module.css";
 
@@ -6,7 +8,7 @@ export interface Props extends React.ComponentPropsWithoutRef<any> {
   handleBoxSelect: any;
 }
 
-const DrawBoxGrid = ({ data = [], handleBoxSelect }: Props) => {
+const DrawBoxGrid: FC<Props> = ({ data = [], handleBoxSelect }: Props) => {
   return (
     <>
       {data.map((dt, idx) => (

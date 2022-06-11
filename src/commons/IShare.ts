@@ -8,3 +8,16 @@ export interface ICustomAction {
 }
 
 export type CustomDispatchType = (arg: ICustomAction) => ICustomAction;
+
+export interface IPuzzle {
+  value: number;
+  cls: string;
+  display: string | number;
+}
+
+export type IPuzzleData = IPuzzle | number;
+
+export interface IProcessData {
+  data: IPuzzleData[][];
+  mineCounter: number;
+}

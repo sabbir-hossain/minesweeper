@@ -14,10 +14,10 @@ import Box from "../box";
 import styles from "./box-grid.module.css";
 
 interface BoxGridPropsTypes extends React.ComponentPropsWithoutRef<any> {
-  data: [];
+  data: IGame[][];
 }
 
-const BoxGrid: FC<BoxGridPropsTypes> = ({ data = [] }) => {
+const BoxGrid: FC<BoxGridPropsTypes> = ({ data = [] }: BoxGridPropsTypes) => {
   const { play, flagSelected, findMineCount, totalMines } = useSelector(
     (state: any) => state.gameReducer as IGameReducer
   );

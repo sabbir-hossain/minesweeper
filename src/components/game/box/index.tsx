@@ -1,9 +1,9 @@
-import React from "react";
+import { ComponentPropsWithoutRef, FC } from "react";
 import { useSelector } from "react-redux";
 
 import styles from "./box.module.css";
 
-export interface Props extends React.ComponentPropsWithoutRef<any> {
+export interface Props extends ComponentPropsWithoutRef<any> {
   play?: boolean;
   value?: number;
   key?: string;
@@ -13,18 +13,13 @@ export interface Props extends React.ComponentPropsWithoutRef<any> {
   handleBox: any;
 }
 
-// const showDisable = (id: string) => {
-//   const [a, b] = id.split('-');
-//   return `${styles.boxDisable} ${(+a + +b) % 2 === 0 && styles.boxDisableEven}`
-// }
-
-const showMine = (play: boolean) => (
+const showMine: FC<boolean> = (play: boolean) => (
   <div className={`${play ? styles.box : styles.boxDisable}`}>
     <img alt="mine" src={"./mine.png"} className={styles.boxImg} />
   </div>
 );
 
-const showFlag = ({ play, id, handleBox }: Props) => (
+const showFlag: FC<Props> = ({ play, id, handleBox }: Props) => (
   <div
     className={` ${play ? styles.box : styles.boxDisable}`}
     onClick={() => handleBox(id)}
@@ -33,7 +28,7 @@ const showFlag = ({ play, id, handleBox }: Props) => (
   </div>
 );
 
-const others = ({ id, cls, display, handleBox }: Props) => (
+const others: FC<Props> = ({ id, cls, display, handleBox }: Props) => (
   <div
     className={`${`${styles.box} ${styles[`${cls}`]}`}`}
     onClick={() => handleBox(id)}
@@ -42,7 +37,7 @@ const others = ({ id, cls, display, handleBox }: Props) => (
   </div>
 );
 
-const Box = ({ id, cls, display, handleBox }: Props) => {
+const Box: FC<Props> = ({ id, cls, display, handleBox }: Props) => {
   const { play } = useSelector((state: any) => state.gameReducer);
 
   return display === "show_mine"

@@ -1,3 +1,4 @@
+import { FC } from "react";
 import styles from "./draw-box.module.css";
 
 export interface Props extends React.ComponentPropsWithoutRef<any> {
@@ -8,13 +9,13 @@ export interface Props extends React.ComponentPropsWithoutRef<any> {
   handleBox: any;
 }
 
-const showMine = ({ id, handleBox }: Props) => (
+const showMine: FC<Props> = ({ id, handleBox }: Props) => (
   <div className={`${styles.box}`} onClick={() => handleBox(id)}>
     <img alt="mine" src={"./mine.png"} className={styles.boxImg} />
   </div>
 );
 
-const others = ({ id, cls, handleBox }: Props) => (
+const others: FC<Props> = ({ id, cls, handleBox }: Props) => (
   <div
     className={`${`${styles.box} ${styles[`${cls}`]}`}`}
     onClick={() => handleBox(id)}
@@ -23,7 +24,7 @@ const others = ({ id, cls, handleBox }: Props) => (
   </div>
 );
 
-const DrawBox = ({ id, cls, display, handleBox }: Props) => {
+const DrawBox: FC<Props> = ({ id, cls, display, handleBox }: Props) => {
   return display === -1
     ? showMine({ id, cls, display, handleBox })
     : others({ id, cls, display, handleBox });
